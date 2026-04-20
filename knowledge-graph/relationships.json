@@ -1,0 +1,329 @@
+{
+  "relationships": [
+    {
+      "id": "rel_001",
+      "source": "steve_jobs",
+      "target": "apple",
+      "type": "created",
+      "description": "Co-founded Apple with Steve Wozniak in 1976",
+      "weight": 1.0,
+      "time": "1976",
+      "evidence": ["Biography", "Company history", "Public records"],
+      "attributes": {
+        "role": "Co-founder",
+        "contribution": "Vision, marketing, product design",
+        "duration": "1976-1985, 1997-2011"
+      }
+    },
+    {
+      "id": "rel_002",
+      "source": "steve_jobs",
+      "target": "pixar",
+      "type": "created",
+      "description": "Bought Lucasfilm graphics division and built into Pixar",
+      "weight": 0.9,
+      "time": "1986",
+      "evidence": ["Pixar history", "Disney acquisition documents"],
+      "attributes": {
+        "role": "Founder and CEO",
+        "contribution": "Business strategy, funding, creative culture",
+        "outcome": "Sold to Disney for $7.4 billion"
+      }
+    },
+    {
+      "id": "rel_003",
+      "source": "steve_jobs",
+      "target": "next",
+      "type": "created",
+      "description": "Founded after being fired from Apple",
+      "weight": 0.8,
+      "time": "1985",
+      "evidence": ["NeXT history", "Biography"],
+      "attributes": {
+        "role": "Founder and CEO",
+        "contribution": "Product vision, operating system design",
+        "legacy": "NeXTSTEP became macOS foundation"
+      }
+    },
+    {
+      "id": "rel_004",
+      "source": "steve_jobs",
+      "target": "iphone",
+      "type": "led",
+      "description": "Personally led iPhone development project",
+      "weight": 1.0,
+      "time": "2004-2007",
+      "evidence": ["iPhone development stories", "Biography"],
+      "attributes": {
+        "role": "Project leader",
+        "contribution": "Vision, design decisions, team motivation",
+        "impact": "Created smartphone revolution"
+      }
+    },
+    {
+      "id": "rel_005",
+      "source": "steve_jobs",
+      "target": "simplicity",
+      "type": "influenced",
+      "description": "Championed and practiced simplicity philosophy",
+      "weight": 0.9,
+      "time": "1976-2011",
+      "evidence": ["Speeches", "Product designs", "Biography"],
+      "attributes": {
+        "influence_type": "Philosophical influence",
+        "manifestation": "Product design, business strategy",
+        "quotes": ["Simple can be harder than complex", "Less is more"]
+      }
+    },
+    {
+      "id": "rel_006",
+      "source": "steve_jobs",
+      "target": "reality_distortion",
+      "type": "exemplifies",
+      "description": "Personified reality distortion field concept",
+      "weight": 0.9,
+      "time": "1976-2011",
+      "evidence": ["Team member accounts", "Biography"],
+      "attributes": {
+        "manifestation": "Making teams believe impossible deadlines",
+        "effectiveness": "Highly effective but stressful",
+        "famous_cases": ["Macintosh one-year deadline", "iPhone development"]
+      }
+    },
+    {
+      "id": "rel_007",
+      "source": "steve_jobs",
+      "target": "think_different",
+      "type": "advocated",
+      "description": "Promoted Think Different as innovation philosophy",
+      "weight": 0.9,
+      "time": "1997-2011",
+      "evidence": ["Apple marketing", "Speeches", "Biography"],
+      "attributes": {
+        "campaign": "Apple's Think Different advertising campaign",
+        "philosophy": "Challenge conventions, create new categories",
+        "impact": "Became Apple's innovation mantra"
+      }
+    },
+    {
+      "id": "rel_008",
+      "source": "iphone",
+      "target": "simplicity",
+      "type": "exemplifies",
+      "description": "iPhone design embodies simplicity philosophy",
+      "weight": 0.8,
+      "time": "2007",
+      "evidence": ["Product design analysis", "Jobs's presentations"],
+      "attributes": {
+        "design_elements": ["Single button", "Clean interface", "Minimal controls"],
+        "user_experience": "Intuitive, easy to learn",
+        "industry_impact": "Set simplicity standard for smartphones"
+      }
+    },
+    {
+      "id": "rel_009",
+      "source": "macintosh",
+      "target": "simplicity",
+      "type": "exemplifies",
+      "description": "Early example of Jobs's simplicity design",
+      "weight": 0.7,
+      "time": "1984",
+      "evidence": ["Product design", "Historical analysis"],
+      "attributes": {
+        "design_elements": ["All-in-one design", "Friendly appearance", "GUI simplicity"],
+        "historical_significance": "Early mass-market simplicity example",
+        "limitations": "Still relatively complex by later standards"
+      }
+    },
+    {
+      "id": "rel_010",
+      "source": "steve_jobs",
+      "target": "bill_gates",
+      "type": "contrasts",
+      "description": "Jobs vs Gates: Design vs Business, Closed vs Open",
+      "weight": 0.6,
+      "time": "1970s-2010s",
+      "evidence": ["Industry history", "Biographies", "Public interactions"],
+      "attributes": {
+        "contrast_dimensions": ["Design philosophy", "Business model", "Personality"],
+        "relationship": "Competitive but respectful",
+        "famous_quote": "Jobs: \"Bill is basically unimaginative\""
+      }
+    },
+    {
+      "id": "rel_011",
+      "source": "apple",
+      "target": "microsoft",
+      "type": "contrasts",
+      "description": "Apple vs Microsoft: Integrated vs Licensed, Design vs Utility",
+      "weight": 0.6,
+      "time": "1980s-present",
+      "evidence": ["Industry analysis", "Market competition"],
+      "attributes": {
+        "contrast_dimensions": ["Business model", "Design philosophy", "Market approach"],
+        "competitive_history": "PC vs Mac wars, smartphone competition",
+        "market_outcome": "Both highly successful with different approaches"
+      }
+    },
+    {
+      "id": "rel_012",
+      "source": "steve_jobs",
+      "target": "tim_cook",
+      "type": "influenced",
+      "description": "Mentored and prepared Cook as successor",
+      "weight": 0.7,
+      "time": "1998-2011",
+      "evidence": ["Biography", "Company history"],
+      "attributes": {
+        "mentorship_period": "13 years working together",
+        "succession_planning": "Deliberate preparation for leadership transition",
+        "legacy_preservation": "Cook continued Jobs's vision while adding operations excellence"
+      }
+    },
+    {
+      "id": "rel_013",
+      "source": "steve_jobs",
+      "target": "jony_ive",
+      "type": "collaborated",
+      "description": "Close collaboration on product design",
+      "weight": 0.8,
+      "time": "1992-2011",
+      "evidence": ["Design history", "Interviews", "Biography"],
+      "attributes": {
+        "collaboration_products": ["iMac", "iPod", "iPhone", "iPad", "MacBook"],
+        "working_relationship": "Daily design reviews, shared aesthetic vision",
+        "mutual_influence": "Jobs provided vision, Ive executed design"
+      }
+    },
+    {
+      "id": "rel_014",
+      "source": "iphone",
+      "target": "mobile_phone_industry",
+      "type": "disrupted",
+      "description": "iPhone disrupted existing mobile phone industry",
+      "weight": 0.9,
+      "time": "2007",
+      "evidence": ["Market analysis", "Industry reports"],
+      "attributes": {
+        "disruption_type": "Technological and business model disruption",
+        "affected_companies": ["Nokia", "BlackBerry", "Motorola", "Samsung"],
+        "industry_changes": ["Touchscreen standard", "App ecosystem", "Mobile internet"]
+      }
+    },
+    {
+      "id": "rel_015",
+      "source": "ipod",
+      "target": "music_industry",
+      "type": "disrupted",
+      "description": "iPod and iTunes disrupted music industry",
+      "weight": 0.8,
+      "time": "2001-2010",
+      "evidence": ["Music industry analysis", "Sales data"],
+      "attributes": {
+        "disruption_type": "Distribution and consumption model",
+        "affected_players": ["Record labels", "CD manufacturers", "Retail stores"],
+        "industry_changes": ["Digital music sales", "Album vs single sales", "Streaming precursor"]
+      }
+    },
+    {
+      "id": "rel_016",
+      "source": "steve_jobs",
+      "target": "jobs_fired",
+      "type": "experienced",
+      "description": "Personally experienced being fired from Apple",
+      "weight": 0.8,
+      "time": "1985",
+      "evidence": ["Biography", "Interviews"],
+      "attributes": {
+        "emotional_impact": "Devastating but ultimately transformative",
+        "personal_growth": "Learned humility, improved management style",
+        "reflection": "Called it \"best thing that could have happened\""
+      }
+    },
+    {
+      "id": "rel_017",
+      "source": "steve_jobs",
+      "target": "jobs_return",
+      "type": "experienced",
+      "description": "Returned to Apple as CEO in 1997",
+      "weight": 0.9,
+      "time": "1997",
+      "evidence": ["Company history", "Biography"],
+      "attributes": {
+        "circumstances": "Apple near bankruptcy, acquired NeXT",
+        "transformation": "Led Apple from near failure to most valuable company",
+        "strategic_changes": ["Focus on few products", "Design excellence", "Retail stores"]
+      }
+    },
+    {
+      "id": "rel_018",
+      "source": "steve_jobs",
+      "target": "stanford_commencement",
+      "type": "delivered",
+      "description": "Delivered famous Stanford commencement speech",
+      "weight": 0.8,
+      "time": "2005",
+      "evidence": ["Speech video", "Transcript", "Biography"],
+      "attributes": {
+        "key_themes": ["Connecting dots", "Love and loss", "Death awareness"],
+        "famous_quotes": ["Stay hungry, stay foolish", "Your time is limited"],
+        "impact": "One of most famous commencement speeches ever"
+      }
+    },
+    {
+      "id": "rel_019",
+      "source": "simplicity",
+      "target": "product_design",
+      "type": "influenced",
+      "description": "Simplicity philosophy influenced entire product design industry",
+      "weight": 0.8,
+      "time": "2000s-present",
+      "evidence": ["Design trends", "Industry analysis"],
+      "attributes": {
+        "influence_scope": "Global product design standards",
+        "manifestations": ["Minimalist interfaces", "Reduced complexity", "Focus on essentials"],
+        "industry_adoption": "Widely adopted across tech and consumer products"
+      }
+    },
+    {
+      "id": "rel_020",
+      "source": "think_different",
+      "target": "innovation_culture",
+      "type": "influenced",
+      "description": "Think Different philosophy influenced innovation culture",
+      "weight": 0.7,
+      "time": "1990s-present",
+      "evidence": ["Business culture analysis", "Innovation literature"],
+      "attributes": {
+        "influence_scope": "Corporate innovation strategies",
+        "manifestations": ["Challenge assumptions", "Break conventions", "Create new categories"],
+        "cultural_impact": "Inspired entrepreneurs and innovators worldwide"
+      }
+    }
+  ],
+  "metadata": {
+    "total_relationships": 20,
+    "relationship_types": {
+      "created": 3,
+      "led": 1,
+      "influenced": 4,
+      "exemplifies": 3,
+      "advocated": 1,
+      "contrasts": 2,
+      "collaborated": 1,
+      "disrupted": 2,
+      "experienced": 2,
+      "delivered": 1
+    },
+    "weight_distribution": {
+      "1.0": 2,
+      "0.9": 5,
+      "0.8": 7,
+      "0.7": 3,
+      "0.6": 3
+    },
+    "created_date": "2026-04-20",
+    "version": "1.0",
+    "source": "Steve Jobs research summary and relationship analysis"
+  }
+}

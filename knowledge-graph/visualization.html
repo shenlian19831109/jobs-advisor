@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Steve Jobs Knowledge Graph Visualization</title>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f7;
+        }
+        #container {
+            display: flex;
+            height: 90vh;
+            gap: 20px;
+        }
+        #network {
+            flex: 3;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        #sidebar {
+            flex: 1;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+        h1 {
+            color: #1d1d1f;
+            margin-top: 0;
+            font-weight: 600;
+        }
+        h2 {
+            color: #424245;
+            font-size: 18px;
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+        .stats {
+            background: #f5f5f7;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .node-info {
+            background: #f5f5f7;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        .node-info h3 {
+            margin-top: 0;
+            color: #1d1d1f;
+        }
+        .node-type {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        .type-person { background: #007aff; color: white; }
+        .type-company { background: #34c759; color: white; }
+        .type-product { background: #ff9500; color: white; }
+        .type-concept { background: #af52de; color: white; }
+        .type-event { background: #ff3b30; color: white; }
+        .type-technology { background: #5ac8fa; color: white; }
+        .query-example {
+            background: #f5f5f7;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-family: 'Menlo', 'Monaco', monospace;
+            font-size: 13px;
+        }
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 20px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+        }
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+        .controls {
+            margin-bottom: 20px;
+        }
+        button {
+            background: #007aff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 8px;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #0056cc;
+        }
+        button.secondary {
+            background: #8e8e93;
+        }
+        button.secondary:hover {
+            background: #636366;
+        }
+    </style>
+</head>
+<body>
+    <h1>Steve Jobs Knowledge Graph</h1>
+    <div class="stats">
+        <strong>Graph Statistics:</strong> 22 entities • 25 relationships • Last updated: 2026-04-20
+    </div>
+    
+    <div id="container">
+        <div id="network"></div>
+        <div id="sidebar">
+            <div class="controls">
+                <button onclick="focusOnSteveJobs()">Focus on Steve Jobs</button>
+                <button onclick="showAll()" class="secondary">Show All</button>
+                <button onclick="exportGraph()" class="secondary">Export JSON</button>
+            </div>
+            
+            <h2>Selected Node</h2>
+            <div id="nodeDetails">
+                <p>Click on any node to see details here.</p>
+            </div>
+            
+            <h2>Query Examples</h2>
+            <div class="query-example">
+                <strong>Find companies founded by Steve Jobs:</strong><br>
+                MATCH (p:Person {id:'steve_jobs'})-[:created]->(c:Company)<br>
+                RETURN c.name, c.description
+            </div>
+            <div class="query-example">
+                <strong>Find products that exemplify simplicity:</strong><br>
+                MATCH (p:Product)-[:exemplifies]->(c:Concept {id:'simplicity'})<br>
+                RETURN p.name, p.description
+            </div>
+            <div class="query-example">
+                <strong>Find Steve Jobs' failure experiences:</strong><br>
+                MATCH (p:Person {id:'steve_jobs'})-[:experienced]->(e:Event)<br>
+                WHERE e.tags CONTAINS 'failure'<br>
+                RETURN e.name, e.description, e.time_period
+            </div>
+            
+            <h2>Legend</h2>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color type-person"></div>
+                    <span>Person</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color type-company"></div>
+                    <span>Company</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color type-product"></div>
+                    <span>Product</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color type-concept"></div>
+                    <span>Concept</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color type-event"></div>
+                    <span>Event</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color type-technology"></div>
+                    <span>Technology</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Graph data
+        const entities = [
+            {id: 'steve_jobs', label: 'Steve Jobs', group: 'person'},
+            {id: 'steve_wozniak', label: 'Steve Wozniak', group: 'person'},
+            {id: 'tim_cook', label: 'Tim Cook', group: 'person'},
+            {id: 'jony_ive', label: 'Jony Ive', group: 'person'},
+            {id: 'apple', label: 'Apple', group: 'company'},
+            {id: 'pixar', label: 'Pixar', group: 'company'},
+            {id: 'next', label: 'NeXT', group: 'company'},
+            {id: 'iphone', label: 'iPhone', group: 'product'},
+            {id: 'ipod', label: 'iPod', group: 'product'},
+            {id: 'imac', label: 'iMac', group: 'product'},
+            {id: 'macintosh', label: 'Macintosh', group: 'product'},
+            {id: 'lisa', label: 'Lisa', group: 'product'},
+            {id: 'simplicity', label: 'Simplicity', group: 'concept'},
+            {id: 'user_experience', label: 'User Experience', group: 'concept'},
+            {id: 'reality_distortion', label: 'Reality Distortion', group: 'concept'},
+            {id: 'pirate_spirit', label: 'Pirate Spirit', group: 'concept'},
+            {id: 'apple_founded', label: 'Apple Founded', group: 'event'},
+            {id: 'iphone_launch', label: 'iPhone Launch', group: 'event'},
+            {id: 'jobs_fired', label: 'Jobs Fired', group: 'event'},
+            {id: 'jobs_return', label: 'Jobs Return', group: 'event'},
+            {id: 'stanford_speech', label: 'Stanford Speech', group: 'event'},
+            {id: 'multitouch', label: 'Multitouch', group: 'technology'}
+        ];
+
+        const edges = [
+            {from: 'steve_jobs', to: 'apple', label: 'created'},
+            {from: 'steve_jobs', to: 'pixar', label: 'created'},
+            {from: 'steve_jobs', to: 'next', label: 'created'},
+            {from: 'steve_jobs', to: 'apple', label: 'led'},
+            {from: 'steve_jobs', to: 'simplicity', label: 'influenced'},
+            {from: 'steve_jobs', to: 'user_experience', label: 'emphasized'},
+            {from: 'steve_jobs', to: 'reality_distortion', label: 'possessed'},
+            {from: 'steve_jobs', to: 'pirate_spirit', label: 'advocated'},
+            {from: 'steve_jobs', to: 'iphone', label: 'launched'},
+            {from: 'steve_jobs', to: 'ipod', label: 'launched'},
+            {from: 'steve_jobs', to: 'imac', label: 'launched'},
+            {from: 'steve_jobs', to: 'macintosh', label: 'launched'},
+            {from: 'steve_jobs', to: 'jobs_fired', label: 'experienced'},
+            {from: 'steve_jobs', to: 'jobs_return', label: 'experienced'},
+            {from: 'steve_jobs', to: 'stanford_speech', label: 'delivered'},
+            {from: 'apple', to: 'iphone', label: 'produces'},
+            {from: 'apple', to: 'ipod', label: 'produces'},
+            {from: 'apple', to: 'imac', label: 'produces'},
+            {from: 'iphone', to: 'simplicity', label: 'exemplifies'},
+            {from: 'iphone', to: 'multitouch', label: 'adopts'},
+            {from: 'steve_jobs', to: 'steve_wozniak', label: 'collaborated'},
+            {from: 'steve_jobs', to: 'tim_cook', label: 'hired'},
+            {from: 'steve_jobs', to: 'jony_ive', label: 'collaborated'},
+            {from: 'simplicity', to: 'user_experience', label: 'enhances'},
+            {from: 'reality_distortion', to: 'team_motivation', label: 'facilitates'}
+        ];
+
+        // Node details data
+        const nodeDetails = {
+            'steve_jobs': {
+                type: 'Person',
+                description: 'Co-founder of Apple, founder of Pixar',
+                importance: 'Core',
+                time: '1955-2011',
+                tags: ['founder', 'innovator', 'designer', 'leader']
+            },
+            'iphone': {
+                type: 'Product',
+                description: 'Smartphone that redefined the mobile industry',
+                importance: 'Core',
+                time: '2007-',
+                tags: ['smartphone', 'mobile', 'consumer_electronics']
+            },
+            'simplicity': {
+                type: 'Concept',
+                description: 'Less is more, remove all unnecessary elements',
+                importance: 'Core',
+                time: null,
+                tags: ['philosophy', 'design_principle']
+            },
+            'apple': {
+                type: 'Company',
+                description: 'Technology company, maker of personal computers and smartphones',
+                importance: 'Core',
+                time: '1976-',
+                tags: ['technology', 'hardware', 'software']
+            },
+            'jobs_fired': {
+                type: 'Event',
+                description: 'Fired from Apple by the board of directors',
+                importance: 'Important',
+                time: '1985',
+                tags: ['failure', 'turning_point']
+            }
+        };
+
+        // Initialize network
+        const container = document.getElementById('network');
+        const data = {
+            nodes: new vis.DataSet(entities),
+            edges: new vis.DataSet(edges)
+        };
+
+        const options = {
+            nodes: {
+                shape: 'dot',
+                size: 20,
+                font: {
+                    size: 14,
+                    face: 'Tahoma'
+                },
+                borderWidth: 2
+            },
+            edges: {
+                width: 2,
+                smooth: {
+                    type: 'continuous'
+                },
+                arrows: {
+                    to: {enabled: true, scaleFactor: 0.5}
+                },
+                font: {
+                    size: 12,
+                    align: 'middle'
+                }
+            },
+            groups: {
+                person: {
+                    color: {background: '#007aff', border: '#0056cc'},
+                    font: {color: '#ffffff'}
+                },
+                company: {
+                    color: {background: '#34c759', border: '#2ca84a'},
+                    font: {color: '#ffffff'}
+                },
+                product: {
+                    color: {background: '#ff9500', border: '#e68500'},
+                    font: {color: '#ffffff'}
+                },
+                concept: {
+                    color: {background: '#af52de', border: '#8e44ad'},
+                    font: {color: '#ffffff'}
+                },
+                event: {
+                    color: {background: '#ff3b30', border: '#d70015'},
+                    font: {color: '#ffffff'}
+                },
+                technology: {
+                    color: {background: '#5ac8fa', border: '#34aadc'},
+                    font: {color: '#ffffff'}
+                }
+            },
+            physics: {
+                enabled: true,
+                stabilization: {
+                    iterations: 100
+                }
+            },
+            interaction: {
+                hover: true,
+                tooltipDelay: 200
+            }
+        };
+
+        const network = new vis.Network(container, data, options);
+
+        // Event handling
+        network.on('click', function(params) {
+            if (params.nodes.length > 0) {
+                const nodeId = params.nodes[0];
+                const node = entities.find(n => n.id === nodeId);
+                const details = nodeDetails[nodeId] || {
+                    type: node.group,
+                    description: 'No detailed description available',
+                    importance: 'Unknown',
+                    time: 'Unknown',
+                    tags: []
+                };
+
+                const typeClass = `type-${node.group}`;
+                const tagsHtml = details.tags.map(tag => 
+                    `<span style="background: #e5e5ea; padding: 2px 6px; border-radius: 4px; font-size: 12px; margin-right: 4px;">${tag}</span>`
+                ).join('');
+
+                document.getElementById('nodeDetails').innerHTML = `
+                    <div class="node-info">
+                        <h3>${node.label}</h3>
+                        <div><span class="node-type ${typeClass}">${details.type}</span></div>
+                        <p><strong>Description:</strong> ${details.description}</p>
+                        <p><strong>Importance:</strong> ${details.importance}</p>
+                        <p><strong>Time:</strong> ${details.time || 'N/A'}</p>
+                        <p><strong>Tags:</strong> ${tagsHtml}</p>
+                    </div>
+                `;
+            }
+        });
+
+        // Control functions
+        function focusOnSteveJobs() {
+            network.focus('steve_jobs', {
+                scale: 1.5,
+                animation: {
+                    duration: 1000,
+                    easingFunction: 'easeInOutQuad'
+                }
+            });
+            
+            // Highlight Steve Jobs and connected nodes
+            const connectedNodes = network.getConnectedNodes('steve_jobs');
+            const allNodes = entities.map(n => n.id);
+            const hiddenNodes = allNodes.filter(id => 
+                id !== 'steve_jobs' && !connectedNodes.includes(id)
+            );
+            
+            data.nodes.update(
+                hiddenNodes.map(id => ({id: id, hidden: true}))
+            );
+        }
+
+        function showAll() {
+            // Show all nodes
+            data.nodes.update(
+                entities.map(node => ({id: node.id, hidden: false}))
+            );
+            
+            network.fit({
+                animation: {
+                    duration: 1000,
+                    easingFunction: 'easeInOutQuad'
+                }
+            });
+        }
+
+        function exportGraph() {
+            const graphData = {
+                entities: entities,
+                edges: edges,
+                nodeDetails: nodeDetails
+            };
+            
+            const dataStr = JSON.stringify(graphData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = 'steve_jobs_knowledge_graph.json';
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+
+        // Initialize with Steve Jobs focused
+        setTimeout(() => {
+            focusOnSteveJobs();
+        }, 500);
+    </script>
+</body>
+</html>
