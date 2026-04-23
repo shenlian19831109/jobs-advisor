@@ -1,87 +1,479 @@
 {
   "nodes": [
-    {"id": "steve_jobs", "label": "Steve Jobs", "type": "person", "size": 50},
-    {"id": "apple", "label": "Apple", "type": "company", "size": 40},
-    {"id": "pixar", "label": "Pixar", "type": "company", "size": 30},
-    {"id": "next", "label": "NeXT", "type": "company", "size": 25},
-    {"id": "iphone", "label": "iPhone", "type": "product", "size": 35},
-    {"id": "macintosh", "label": "Macintosh", "type": "product", "size": 30},
-    {"id": "ipod", "label": "iPod", "type": "product", "size": 25},
-    {"id": "ipad", "label": "iPad", "type": "product", "size": 25},
-    {"id": "simplicity", "label": "Simplicity", "type": "concept", "size": 30},
-    {"id": "reality_distortion", "label": "Reality Distortion", "type": "concept", "size": 25},
-    {"id": "think_different", "label": "Think Different", "type": "concept", "size": 25},
-    {"id": "pirate_spirit", "label": "Pirate Spirit", "type": "concept", "size": 20},
-    {"id": "steve_wozniak", "label": "Steve Wozniak", "type": "person", "size": 20},
-    {"id": "tim_cook", "label": "Tim Cook", "type": "person", "size": 20},
-    {"id": "jony_ive", "label": "Jony Ive", "type": "person", "size": 20},
-    {"id": "apple_founded", "label": "Apple Founded", "type": "event", "size": 15},
-    {"id": "mac_launch", "label": "Mac Launch", "type": "event", "size": 15},
-    {"id": "jobs_fired", "label": "Jobs Fired", "type": "event", "size": 15},
-    {"id": "iphone_launch", "label": "iPhone Launch", "type": "event", "size": 15},
-    {"id": "jobs_death", "label": "Jobs Death", "type": "event", "size": 15}
+    {
+      "id": "steve_jobs",
+      "label": "Steve Jobs",
+      "type": "Person",
+      "importance": "core",
+      "color": "#FF6B6B",
+      "role": "Founder & Visionary",
+      "birth_year": 1955,
+      "death_year": 2011
+    },
+    {
+      "id": "wozniak",
+      "label": "Steve Wozniak",
+      "type": "Person",
+      "importance": "important",
+      "color": "#FF6B6B",
+      "role": "Co-founder",
+      "contribution": "Technical genius"
+    },
+    {
+      "id": "jony_ive",
+      "label": "Jony Ive",
+      "type": "Person",
+      "importance": "important",
+      "color": "#FF6B6B",
+      "role": "Chief Designer",
+      "collaboration_period": "1997-2019"
+    },
+    {
+      "id": "tim_cook",
+      "label": "Tim Cook",
+      "type": "Person",
+      "importance": "important",
+      "color": "#FF6B6B",
+      "role": "CEO Successor",
+      "mentored_by": "steve_jobs"
+    },
+    {
+      "id": "apple",
+      "label": "Apple",
+      "type": "Organization",
+      "importance": "core",
+      "color": "#4ECDC4",
+      "founded_year": 1976,
+      "industry": "Technology"
+    },
+    {
+      "id": "pixar",
+      "label": "Pixar",
+      "type": "Organization",
+      "importance": "important",
+      "color": "#4ECDC4",
+      "founded_year": 1986,
+      "industry": "Animation"
+    },
+    {
+      "id": "next",
+      "label": "NeXT",
+      "type": "Organization",
+      "importance": "important",
+      "color": "#4ECDC4",
+      "founded_year": 1985,
+      "industry": "Computing"
+    },
+    {
+      "id": "disney",
+      "label": "Disney",
+      "type": "Organization",
+      "importance": "important",
+      "color": "#4ECDC4",
+      "acquired_pixar": 2006
+    },
+    {
+      "id": "simplicity",
+      "label": "Simplicity Philosophy",
+      "type": "Concept",
+      "importance": "core",
+      "color": "#95E1D3",
+      "category": "Design Philosophy",
+      "definition": "Less is more"
+    },
+    {
+      "id": "reality_distortion",
+      "label": "Reality Distortion Field",
+      "type": "Concept",
+      "importance": "core",
+      "color": "#95E1D3",
+      "category": "Leadership",
+      "definition": "Making impossible possible"
+    },
+    {
+      "id": "pirate_spirit",
+      "label": "Pirate Spirit",
+      "type": "Concept",
+      "importance": "important",
+      "color": "#95E1D3",
+      "category": "Culture",
+      "definition": "Small team beats big company"
+    },
+    {
+      "id": "think_different",
+      "label": "Think Different",
+      "type": "Concept",
+      "importance": "important",
+      "color": "#95E1D3",
+      "category": "Brand Philosophy"
+    },
+    {
+      "id": "end_to_end",
+      "label": "End-to-End Control",
+      "type": "Concept",
+      "importance": "important",
+      "color": "#95E1D3",
+      "category": "Strategy"
+    },
+    {
+      "id": "design_thinking",
+      "label": "Design Thinking",
+      "type": "Method",
+      "importance": "core",
+      "color": "#F38181",
+      "steps": [
+        "Empathize",
+        "Define",
+        "Ideate",
+        "Prototype",
+        "Test"
+      ]
+    },
+    {
+      "id": "simplicity_testing",
+      "label": "Simplicity Testing",
+      "type": "Method",
+      "importance": "important",
+      "color": "#F38181",
+      "steps": [
+        "Remove features",
+        "Test",
+        "Iterate"
+      ]
+    },
+    {
+      "id": "user_experience_focus",
+      "label": "User Experience Focus",
+      "type": "Method",
+      "importance": "important",
+      "color": "#F38181"
+    },
+    {
+      "id": "iterative_refinement",
+      "label": "Iterative Refinement",
+      "type": "Method",
+      "importance": "important",
+      "color": "#F38181"
+    },
+    {
+      "id": "iphone",
+      "label": "iPhone",
+      "type": "Product",
+      "importance": "core",
+      "color": "#AA96DA",
+      "launch_year": 2007,
+      "impact": "Revolutionary"
+    },
+    {
+      "id": "ipad",
+      "label": "iPad",
+      "type": "Product",
+      "importance": "important",
+      "color": "#AA96DA",
+      "launch_year": 2010
+    },
+    {
+      "id": "macintosh",
+      "label": "Macintosh",
+      "type": "Product",
+      "importance": "important",
+      "color": "#AA96DA",
+      "launch_year": 1984
+    },
+    {
+      "id": "ipod",
+      "label": "iPod",
+      "type": "Product",
+      "importance": "important",
+      "color": "#AA96DA",
+      "launch_year": 2001
+    },
+    {
+      "id": "founding_apple",
+      "label": "Apple Founded",
+      "type": "Event",
+      "importance": "core",
+      "color": "#FCBAD3",
+      "year": 1976
+    },
+    {
+      "id": "iphone_launch",
+      "label": "iPhone Launch",
+      "type": "Event",
+      "importance": "core",
+      "color": "#FCBAD3",
+      "year": 2007,
+      "impact": "Industry transformation"
+    },
+    {
+      "id": "jobs_fired",
+      "label": "Jobs Fired from Apple",
+      "type": "Event",
+      "importance": "important",
+      "color": "#FCBAD3",
+      "year": 1985
+    },
+    {
+      "id": "jobs_return",
+      "label": "Jobs Returns to Apple",
+      "type": "Event",
+      "importance": "important",
+      "color": "#FCBAD3",
+      "year": 1997
+    },
+    {
+      "id": "cancer_diagnosis",
+      "label": "Cancer Diagnosis",
+      "type": "Event",
+      "importance": "important",
+      "color": "#FCBAD3",
+      "year": 2003
+    },
+    {
+      "id": "consumer_electronics",
+      "label": "Consumer Electronics Market",
+      "type": "Scenario",
+      "importance": "core",
+      "color": "#FFD93D",
+      "market_size": "Trillion dollars"
+    },
+    {
+      "id": "mobile_revolution",
+      "label": "Mobile Revolution Era",
+      "type": "Scenario",
+      "importance": "core",
+      "color": "#FFD93D",
+      "period": "2007-2011"
+    },
+    {
+      "id": "design_innovation",
+      "label": "Design Innovation",
+      "type": "Scenario",
+      "importance": "important",
+      "color": "#FFD93D"
+    },
+    {
+      "id": "remove_floppy",
+      "label": "Remove Floppy Drive",
+      "type": "Decision",
+      "importance": "important",
+      "color": "#A8E6CF",
+      "year": 1998,
+      "impact": "Controversial but forward-thinking"
+    },
+    {
+      "id": "unify_ecosystem",
+      "label": "Unify Hardware & Software",
+      "type": "Decision",
+      "importance": "core",
+      "color": "#A8E6CF",
+      "year": 1997,
+      "impact": "Competitive advantage"
+    },
+    {
+      "id": "iphone_decision",
+      "label": "Enter Mobile Market",
+      "type": "Decision",
+      "importance": "core",
+      "color": "#A8E6CF",
+      "year": 2005,
+      "impact": "Changed industry forever"
+    }
   ],
   "edges": [
-    {"source": "steve_jobs", "target": "apple", "label": "created", "weight": 1.0},
-    {"source": "steve_jobs", "target": "pixar", "label": "created", "weight": 0.9},
-    {"source": "steve_jobs", "target": "next", "label": "created", "weight": 0.8},
-    {"source": "steve_jobs", "target": "iphone", "label": "led", "weight": 1.0},
-    {"source": "steve_jobs", "target": "macintosh", "label": "led", "weight": 0.9},
-    {"source": "steve_jobs", "target": "simplicity", "label": "influenced", "weight": 0.9},
-    {"source": "steve_jobs", "target": "reality_distortion", "label": "exemplifies", "weight": 0.9},
-    {"source": "steve_jobs", "target": "think_different", "label": "advocated", "weight": 0.9},
-    {"source": "steve_jobs", "target": "pirate_spirit", "label": "practiced", "weight": 0.8},
-    {"source": "steve_jobs", "target": "steve_wozniak", "label": "co-founded", "weight": 0.8},
-    {"source": "steve_jobs", "target": "tim_cook", "label": "mentored", "weight": 0.7},
-    {"source": "steve_jobs", "target": "jony_ive", "label": "collaborated", "weight": 0.8},
-    {"source": "iphone", "target": "simplicity", "label": "exemplifies", "weight": 0.8},
-    {"source": "macintosh", "target": "simplicity", "label": "exemplifies", "weight": 0.7},
-    {"source": "ipod", "target": "simplicity", "label": "exemplifies", "weight": 0.7},
-    {"source": "ipad", "target": "simplicity", "label": "exemplifies", "weight": 0.7},
-    {"source": "steve_jobs", "target": "apple_founded", "label": "participated", "weight": 0.9},
-    {"source": "steve_jobs", "target": "mac_launch", "label": "participated", "weight": 0.8},
-    {"source": "steve_jobs", "target": "jobs_fired", "label": "experienced", "weight": 0.8},
-    {"source": "steve_jobs", "target": "iphone_launch", "label": "participated", "weight": 0.9},
-    {"source": "steve_jobs", "target": "jobs_death", "label": "subject", "weight": 1.0},
-    {"source": "apple", "target": "iphone", "label": "produced", "weight": 0.8},
-    {"source": "apple", "target": "macintosh", "label": "produced", "weight": 0.8},
-    {"source": "apple", "target": "ipod", "label": "produced", "weight": 0.7},
-    {"source": "apple", "target": "ipad", "label": "produced", "weight": 0.7},
-    {"source": "simplicity", "target": "iphone", "label": "manifested_in", "weight": 0.8},
-    {"source": "simplicity", "target": "ipod", "label": "manifested_in", "weight": 0.7},
-    {"source": "think_different", "target": "iphone", "label": "manifested_in", "weight": 0.8},
-    {"source": "think_different", "target": "ipad", "label": "manifested_in", "weight": 0.7},
-    {"source": "reality_distortion", "target": "macintosh", "label": "applied_to", "weight": 0.8}
+    {
+      "source": "steve_jobs",
+      "target": "simplicity",
+      "label": "advocates",
+      "weight": 0.95,
+      "importance": "core",
+      "direction": "forward",
+      "timeline": {
+        "start_year": 1980,
+        "end_year": 2011
+      }
+    },
+    {
+      "source": "steve_jobs",
+      "target": "reality_distortion",
+      "label": "exemplifies",
+      "weight": 0.95,
+      "importance": "core",
+      "direction": "forward"
+    },
+    {
+      "source": "steve_jobs",
+      "target": "apple",
+      "label": "founded",
+      "weight": 1.0,
+      "importance": "core",
+      "direction": "forward",
+      "timeline": {
+        "start_year": 1976
+      }
+    },
+    {
+      "source": "steve_jobs",
+      "target": "think_different",
+      "label": "created",
+      "weight": 0.9,
+      "importance": "core",
+      "direction": "forward",
+      "timeline": {
+        "start_year": 1997
+      }
+    },
+    {
+      "source": "simplicity",
+      "label": "applies_to",
+      "target": "design_thinking",
+      "weight": 0.85,
+      "importance": "core",
+      "direction": "forward"
+    },
+    {
+      "source": "simplicity",
+      "label": "applies_to",
+      "target": "iphone",
+      "weight": 0.9,
+      "importance": "core",
+      "direction": "forward"
+    },
+    {
+      "source": "design_thinking",
+      "label": "uses_method",
+      "target": "simplicity_testing",
+      "weight": 0.8,
+      "importance": "important",
+      "direction": "forward"
+    },
+    {
+      "source": "iphone",
+      "label": "exemplifies",
+      "target": "simplicity",
+      "weight": 0.95,
+      "importance": "core",
+      "direction": "forward"
+    },
+    {
+      "source": "iphone",
+      "label": "in_scenario",
+      "target": "mobile_revolution",
+      "weight": 0.95,
+      "importance": "core",
+      "direction": "forward",
+      "timeline": {
+        "start_year": 2007
+      }
+    },
+    {
+      "source": "iphone",
+      "label": "results_in",
+      "target": "iphone_launch",
+      "weight": 0.95,
+      "importance": "core",
+      "direction": "forward"
+    },
+    {
+      "source": "unify_ecosystem",
+      "label": "leads_to_decision",
+      "target": "iphone_decision",
+      "weight": 0.85,
+      "importance": "important",
+      "direction": "forward",
+      "timeline": {
+        "start_year": 1997,
+        "end_year": 2005
+      }
+    },
+    {
+      "source": "iphone_decision",
+      "label": "results_in",
+      "target": "iphone_launch",
+      "weight": 0.95,
+      "importance": "core",
+      "direction": "forward"
+    },
+    {
+      "source": "steve_jobs",
+      "label": "collaborates_with",
+      "target": "jony_ive",
+      "weight": 0.9,
+      "importance": "core",
+      "direction": "bidirectional",
+      "timeline": {
+        "start_year": 1997,
+        "end_year": 2011
+      }
+    },
+    {
+      "source": "steve_jobs",
+      "label": "mentors",
+      "target": "tim_cook",
+      "weight": 0.8,
+      "importance": "important",
+      "direction": "forward",
+      "timeline": {
+        "start_year": 2000,
+        "end_year": 2011
+      }
+    },
+    {
+      "source": "steve_jobs",
+      "label": "founded",
+      "target": "next",
+      "weight": 0.85,
+      "importance": "important",
+      "direction": "forward",
+      "timeline": {
+        "start_year": 1985,
+        "end_year": 1997
+      }
+    },
+    {
+      "source": "jobs_fired",
+      "label": "leads_to_decision",
+      "target": "next",
+      "weight": 0.8,
+      "importance": "important",
+      "direction": "forward",
+      "timeline": {
+        "start_year": 1985
+      }
+    },
+    {
+      "source": "jobs_return",
+      "label": "leads_to_decision",
+      "target": "unify_ecosystem",
+      "weight": 0.85,
+      "importance": "important",
+      "direction": "forward",
+      "timeline": {
+        "start_year": 1997
+      }
+    },
+    {
+      "source": "consumer_electronics",
+      "label": "in_scenario",
+      "target": "iphone",
+      "weight": 0.9,
+      "importance": "core",
+      "direction": "forward"
+    },
+    {
+      "source": "design_innovation",
+      "label": "in_scenario",
+      "target": "simplicity",
+      "weight": 0.85,
+      "importance": "important",
+      "direction": "forward"
+    }
   ],
   "metadata": {
-    "total_nodes": 20,
-    "total_edges": 30,
-    "node_types": {
-      "person": 5,
-      "company": 3,
-      "product": 4,
-      "concept": 4,
-      "event": 4
-    },
-    "edge_types": {
-      "created": 3,
-      "led": 2,
-      "influenced": 1,
-      "exemplifies": 5,
-      "advocated": 1,
-      "practiced": 1,
-      "co-founded": 1,
-      "mentored": 1,
-      "collaborated": 1,
-      "participated": 3,
-      "experienced": 1,
-      "subject": 1,
-      "produced": 4,
-      "manifested_in": 4,
-      "applied_to": 1
-    },
-    "central_node": "steve_jobs",
-    "created_date": "2026-04-20",
-    "purpose": "Simplified graph for visualization"
+    "total_nodes": 33,
+    "total_edges": 19,
+    "simplified_nodes": 32,
+    "simplified_edges": 19,
+    "description": "Simplified knowledge graph with core and important relationships only"
   }
 }

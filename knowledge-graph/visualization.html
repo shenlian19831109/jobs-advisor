@@ -1,446 +1,489 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>Steve Jobs Knowledge Graph Visualization</title>
-    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steve Jobs 知识图谱 - 交互式可视化</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        * {
             margin: 0;
-            padding: 20px;
-            background: #f5f5f7;
+            padding: 0;
+            box-sizing: border-box;
         }
-        #container {
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
             display: flex;
-            height: 90vh;
-            gap: 20px;
+            flex-direction: column;
         }
-        #network {
-            flex: 3;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            background: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        #sidebar {
-            flex: 1;
-            background: white;
-            border-radius: 12px;
+        
+        .header {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
             padding: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        #graph {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .sidebar {
+            width: 300px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
             overflow-y: auto;
+            border-left: 2px solid #667eea;
         }
-        h1 {
-            color: #1d1d1f;
-            margin-top: 0;
-            font-weight: 600;
+        
+        .sidebar h3 {
+            margin-bottom: 15px;
+            font-size: 16px;
+            border-bottom: 1px solid #667eea;
+            padding-bottom: 10px;
         }
-        h2 {
-            color: #424245;
-            font-size: 18px;
-            margin-top: 24px;
-            margin-bottom: 12px;
-        }
+        
         .stats {
-            background: #f5f5f7;
-            padding: 12px;
-            border-radius: 8px;
             margin-bottom: 20px;
-        }
-        .node-info {
-            background: #f5f5f7;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-        }
-        .node-info h3 {
-            margin-top: 0;
-            color: #1d1d1f;
-        }
-        .node-type {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-right: 8px;
-        }
-        .type-person { background: #007aff; color: white; }
-        .type-company { background: #34c759; color: white; }
-        .type-product { background: #ff9500; color: white; }
-        .type-concept { background: #af52de; color: white; }
-        .type-event { background: #ff3b30; color: white; }
-        .type-technology { background: #5ac8fa; color: white; }
-        .query-example {
-            background: #f5f5f7;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            font-family: 'Menlo', 'Monaco', monospace;
             font-size: 13px;
         }
-        .legend {
+        
+        .stat-item {
             display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 20px;
+            justify-content: space-between;
+            margin: 8px 0;
+            padding: 5px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 4px;
         }
+        
+        .legend {
+            margin-bottom: 20px;
+            font-size: 12px;
+        }
+        
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 12px;
+            margin: 8px 0;
+            padding: 5px;
         }
+        
         .legend-color {
-            width: 12px;
-            height: 12px;
-            border-radius: 2px;
-        }
-        .controls {
-            margin-bottom: 20px;
-        }
-        button {
-            background: #007aff;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
             margin-right: 8px;
-            transition: background 0.2s;
         }
-        button:hover {
-            background: #0056cc;
+        
+        .node-info {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 12px;
+            border-left: 3px solid #667eea;
         }
-        button.secondary {
-            background: #8e8e93;
+        
+        .node-info h4 {
+            margin-bottom: 8px;
+            color: #FFD93D;
         }
-        button.secondary:hover {
-            background: #636366;
+        
+        .node-info p {
+            margin: 4px 0;
+            opacity: 0.9;
+        }
+        
+        .controls {
+            padding: 15px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+        
+        .controls label {
+            display: block;
+            margin: 8px 0;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .controls input[type="checkbox"] {
+            margin-right: 6px;
+        }
+        
+        .controls input[type="range"] {
+            width: 100%;
+            margin-top: 5px;
+        }
+        
+        .tooltip {
+            position: absolute;
+            padding: 8px 12px;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 1000;
+            max-width: 200px;
+            word-wrap: break-word;
+        }
+        
+        .link {
+            stroke: #999;
+            stroke-opacity: 0.6;
+            stroke-width: 1.5px;
+        }
+        
+        .node {
+            cursor: pointer;
+            stroke: white;
+            stroke-width: 2px;
+        }
+        
+        .node:hover {
+            stroke-width: 3px;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+        }
+        
+        .node-label {
+            font-size: 11px;
+            pointer-events: none;
+            text-anchor: middle;
+            fill: #333;
+            font-weight: 500;
+        }
+        
+        .link-label {
+            font-size: 10px;
+            pointer-events: none;
+            fill: #666;
+            background: white;
         }
     </style>
 </head>
 <body>
-    <h1>Steve Jobs Knowledge Graph</h1>
-    <div class="stats">
-        <strong>Graph Statistics:</strong> 22 entities • 25 relationships • Last updated: 2026-04-20
+    <div class="header">
+        <h1>🎯 Steve Jobs 知识图谱</h1>
+        <p>人 → 思维框架 → 执行方法 → 案例应用 | 交互式可视化</p>
     </div>
     
-    <div id="container">
-        <div id="network"></div>
-        <div id="sidebar">
-            <div class="controls">
-                <button onclick="focusOnSteveJobs()">Focus on Steve Jobs</button>
-                <button onclick="showAll()" class="secondary">Show All</button>
-                <button onclick="exportGraph()" class="secondary">Export JSON</button>
+    <div class="container">
+        <div id="graph"></div>
+        <div class="sidebar">
+            <h3>📊 统计信息</h3>
+            <div class="stats">
+                <div class="stat-item">
+                    <span>实体总数</span>
+                    <strong id="entity-count">33</strong>
+                </div>
+                <div class="stat-item">
+                    <span>关系总数</span>
+                    <strong id="relation-count">19</strong>
+                </div>
+                <div class="stat-item">
+                    <span>节点类型</span>
+                    <strong>8种</strong>
+                </div>
+                <div class="stat-item">
+                    <span>关系类型</span>
+                    <strong>11种</strong>
+                </div>
             </div>
             
-            <h2>Selected Node</h2>
-            <div id="nodeDetails">
-                <p>Click on any node to see details here.</p>
-            </div>
-            
-            <h2>Query Examples</h2>
-            <div class="query-example">
-                <strong>Find companies founded by Steve Jobs:</strong><br>
-                MATCH (p:Person {id:'steve_jobs'})-[:created]->(c:Company)<br>
-                RETURN c.name, c.description
-            </div>
-            <div class="query-example">
-                <strong>Find products that exemplify simplicity:</strong><br>
-                MATCH (p:Product)-[:exemplifies]->(c:Concept {id:'simplicity'})<br>
-                RETURN p.name, p.description
-            </div>
-            <div class="query-example">
-                <strong>Find Steve Jobs' failure experiences:</strong><br>
-                MATCH (p:Person {id:'steve_jobs'})-[:experienced]->(e:Event)<br>
-                WHERE e.tags CONTAINS 'failure'<br>
-                RETURN e.name, e.description, e.time_period
-            </div>
-            
-            <h2>Legend</h2>
+            <h3>🎨 节点类型图例</h3>
             <div class="legend">
                 <div class="legend-item">
-                    <div class="legend-color type-person"></div>
-                    <span>Person</span>
+                    <div class="legend-color" style="background: #FF6B6B;"></div>
+                    <span>Person (人物)</span>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color type-company"></div>
-                    <span>Company</span>
+                    <div class="legend-color" style="background: #4ECDC4;"></div>
+                    <span>Organization (组织)</span>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color type-product"></div>
-                    <span>Product</span>
+                    <div class="legend-color" style="background: #95E1D3;"></div>
+                    <span>Concept (概念)</span>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color type-concept"></div>
-                    <span>Concept</span>
+                    <div class="legend-color" style="background: #F38181;"></div>
+                    <span>Method (方法)</span>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color type-event"></div>
-                    <span>Event</span>
+                    <div class="legend-color" style="background: #AA96DA;"></div>
+                    <span>Product (产品)</span>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color type-technology"></div>
-                    <span>Technology</span>
+                    <div class="legend-color" style="background: #FCBAD3;"></div>
+                    <span>Event (事件)</span>
                 </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #FFD93D;"></div>
+                    <span>Scenario (场景)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #A8E6CF;"></div>
+                    <span>Decision (决策)</span>
+                </div>
+            </div>
+            
+            <h3>⚙️ 控制选项</h3>
+            <div class="controls">
+                <label>
+                    <input type="checkbox" id="show-labels" checked>
+                    显示标签
+                </label>
+                <label>
+                    <input type="checkbox" id="show-core-only">
+                    仅显示核心关系
+                </label>
+                <label>
+                    节点大小
+                    <input type="range" id="node-size" min="5" max="30" value="15">
+                </label>
+            </div>
+            
+            <h3>ℹ️ 选中节点信息</h3>
+            <div id="node-details" class="node-info" style="display: none;">
+                <h4 id="detail-name">-</h4>
+                <p id="detail-type">-</p>
+                <p id="detail-importance">-</p>
+                <p id="detail-info">-</p>
             </div>
         </div>
     </div>
-
-    <script type="text/javascript">
-        // Graph data
+    
+    <script>
+        // 嵌入的数据
         const entities = [
-            {id: 'steve_jobs', label: 'Steve Jobs', group: 'person'},
-            {id: 'steve_wozniak', label: 'Steve Wozniak', group: 'person'},
-            {id: 'tim_cook', label: 'Tim Cook', group: 'person'},
-            {id: 'jony_ive', label: 'Jony Ive', group: 'person'},
-            {id: 'apple', label: 'Apple', group: 'company'},
-            {id: 'pixar', label: 'Pixar', group: 'company'},
-            {id: 'next', label: 'NeXT', group: 'company'},
-            {id: 'iphone', label: 'iPhone', group: 'product'},
-            {id: 'ipod', label: 'iPod', group: 'product'},
-            {id: 'imac', label: 'iMac', group: 'product'},
-            {id: 'macintosh', label: 'Macintosh', group: 'product'},
-            {id: 'lisa', label: 'Lisa', group: 'product'},
-            {id: 'simplicity', label: 'Simplicity', group: 'concept'},
-            {id: 'user_experience', label: 'User Experience', group: 'concept'},
-            {id: 'reality_distortion', label: 'Reality Distortion', group: 'concept'},
-            {id: 'pirate_spirit', label: 'Pirate Spirit', group: 'concept'},
-            {id: 'apple_founded', label: 'Apple Founded', group: 'event'},
-            {id: 'iphone_launch', label: 'iPhone Launch', group: 'event'},
-            {id: 'jobs_fired', label: 'Jobs Fired', group: 'event'},
-            {id: 'jobs_return', label: 'Jobs Return', group: 'event'},
-            {id: 'stanford_speech', label: 'Stanford Speech', group: 'event'},
-            {id: 'multitouch', label: 'Multitouch', group: 'technology'}
+            {"id": "steve_jobs", "label": "Steve Jobs", "type": "Person", "importance": "core", "color": "#FF6B6B", "role": "Founder & Visionary", "birth_year": 1955, "death_year": 2011},
+            {"id": "wozniak", "label": "Steve Wozniak", "type": "Person", "importance": "important", "color": "#FF6B6B", "role": "Co-founder", "contribution": "Technical genius"},
+            {"id": "jony_ive", "label": "Jony Ive", "type": "Person", "importance": "important", "color": "#FF6B6B", "role": "Chief Designer", "collaboration_period": "1997-2019"},
+            {"id": "tim_cook", "label": "Tim Cook", "type": "Person", "importance": "important", "color": "#FF6B6B", "role": "CEO Successor", "mentored_by": "steve_jobs"},
+            {"id": "bill_gates", "label": "Bill Gates", "type": "Person", "importance": "reference", "color": "#FF6B6B", "role": "Competitor"},
+            {"id": "apple", "label": "Apple", "type": "Organization", "importance": "core", "color": "#4ECDC4", "founded_year": 1976, "industry": "Technology"},
+            {"id": "pixar", "label": "Pixar", "type": "Organization", "importance": "important", "color": "#4ECDC4", "founded_year": 1986, "industry": "Animation"},
+            {"id": "next", "label": "NeXT", "type": "Organization", "importance": "important", "color": "#4ECDC4", "founded_year": 1985, "industry": "Computing"},
+            {"id": "disney", "label": "Disney", "type": "Organization", "importance": "important", "color": "#4ECDC4", "acquired_pixar": 2006},
+            {"id": "simplicity", "label": "Simplicity Philosophy", "type": "Concept", "importance": "core", "color": "#95E1D3", "category": "Design Philosophy", "definition": "Less is more"},
+            {"id": "reality_distortion", "label": "Reality Distortion Field", "type": "Concept", "importance": "core", "color": "#95E1D3", "category": "Leadership", "definition": "Making impossible possible"},
+            {"id": "pirate_spirit", "label": "Pirate Spirit", "type": "Concept", "importance": "important", "color": "#95E1D3", "category": "Culture", "definition": "Small team beats big company"},
+            {"id": "think_different", "label": "Think Different", "type": "Concept", "importance": "important", "color": "#95E1D3", "category": "Brand Philosophy"},
+            {"id": "end_to_end", "label": "End-to-End Control", "type": "Concept", "importance": "important", "color": "#95E1D3", "category": "Strategy"},
+            {"id": "design_thinking", "label": "Design Thinking", "type": "Method", "importance": "core", "color": "#F38181", "steps": ["Empathize", "Define", "Ideate", "Prototype", "Test"]},
+            {"id": "simplicity_testing", "label": "Simplicity Testing", "type": "Method", "importance": "important", "color": "#F38181", "steps": ["Remove features", "Test", "Iterate"]},
+            {"id": "user_experience_focus", "label": "User Experience Focus", "type": "Method", "importance": "important", "color": "#F38181"},
+            {"id": "iterative_refinement", "label": "Iterative Refinement", "type": "Method", "importance": "important", "color": "#F38181"},
+            {"id": "iphone", "label": "iPhone", "type": "Product", "importance": "core", "color": "#AA96DA", "launch_year": 2007, "impact": "Revolutionary"},
+            {"id": "ipad", "label": "iPad", "type": "Product", "importance": "important", "color": "#AA96DA", "launch_year": 2010},
+            {"id": "macintosh", "label": "Macintosh", "type": "Product", "importance": "important", "color": "#AA96DA", "launch_year": 1984},
+            {"id": "ipod", "label": "iPod", "type": "Product", "importance": "important", "color": "#AA96DA", "launch_year": 2001},
+            {"id": "founding_apple", "label": "Apple Founded", "type": "Event", "importance": "core", "color": "#FCBAD3", "year": 1976},
+            {"id": "iphone_launch", "label": "iPhone Launch", "type": "Event", "importance": "core", "color": "#FCBAD3", "year": 2007, "impact": "Industry transformation"},
+            {"id": "jobs_fired", "label": "Jobs Fired from Apple", "type": "Event", "importance": "important", "color": "#FCBAD3", "year": 1985},
+            {"id": "jobs_return", "label": "Jobs Returns to Apple", "type": "Event", "importance": "important", "color": "#FCBAD3", "year": 1997},
+            {"id": "cancer_diagnosis", "label": "Cancer Diagnosis", "type": "Event", "importance": "important", "color": "#FCBAD3", "year": 2003},
+            {"id": "consumer_electronics", "label": "Consumer Electronics Market", "type": "Scenario", "importance": "core", "color": "#FFD93D", "market_size": "Trillion dollars"},
+            {"id": "mobile_revolution", "label": "Mobile Revolution Era", "type": "Scenario", "importance": "core", "color": "#FFD93D", "period": "2007-2011"},
+            {"id": "design_innovation", "label": "Design Innovation", "type": "Scenario", "importance": "important", "color": "#FFD93D"},
+            {"id": "remove_floppy", "label": "Remove Floppy Drive", "type": "Decision", "importance": "important", "color": "#A8E6CF", "year": 1998, "impact": "Controversial but forward-thinking"},
+            {"id": "unify_ecosystem", "label": "Unify Hardware & Software", "type": "Decision", "importance": "core", "color": "#A8E6CF", "year": 1997, "impact": "Competitive advantage"},
+            {"id": "iphone_decision", "label": "Enter Mobile Market", "type": "Decision", "importance": "core", "color": "#A8E6CF", "year": 2005, "impact": "Changed industry forever"},
         ];
-
-        const edges = [
-            {from: 'steve_jobs', to: 'apple', label: 'created'},
-            {from: 'steve_jobs', to: 'pixar', label: 'created'},
-            {from: 'steve_jobs', to: 'next', label: 'created'},
-            {from: 'steve_jobs', to: 'apple', label: 'led'},
-            {from: 'steve_jobs', to: 'simplicity', label: 'influenced'},
-            {from: 'steve_jobs', to: 'user_experience', label: 'emphasized'},
-            {from: 'steve_jobs', to: 'reality_distortion', label: 'possessed'},
-            {from: 'steve_jobs', to: 'pirate_spirit', label: 'advocated'},
-            {from: 'steve_jobs', to: 'iphone', label: 'launched'},
-            {from: 'steve_jobs', to: 'ipod', label: 'launched'},
-            {from: 'steve_jobs', to: 'imac', label: 'launched'},
-            {from: 'steve_jobs', to: 'macintosh', label: 'launched'},
-            {from: 'steve_jobs', to: 'jobs_fired', label: 'experienced'},
-            {from: 'steve_jobs', to: 'jobs_return', label: 'experienced'},
-            {from: 'steve_jobs', to: 'stanford_speech', label: 'delivered'},
-            {from: 'apple', to: 'iphone', label: 'produces'},
-            {from: 'apple', to: 'ipod', label: 'produces'},
-            {from: 'apple', to: 'imac', label: 'produces'},
-            {from: 'iphone', to: 'simplicity', label: 'exemplifies'},
-            {from: 'iphone', to: 'multitouch', label: 'adopts'},
-            {from: 'steve_jobs', to: 'steve_wozniak', label: 'collaborated'},
-            {from: 'steve_jobs', to: 'tim_cook', label: 'hired'},
-            {from: 'steve_jobs', to: 'jony_ive', label: 'collaborated'},
-            {from: 'simplicity', to: 'user_experience', label: 'enhances'},
-            {from: 'reality_distortion', to: 'team_motivation', label: 'facilitates'}
+        
+        const relationships = [
+            {"source": "steve_jobs", "target": "simplicity", "label": "advocates", "weight": 0.95, "importance": "core", "direction": "forward", "timeline": {"start_year": 1980, "end_year": 2011}},
+            {"source": "steve_jobs", "target": "reality_distortion", "label": "exemplifies", "weight": 0.95, "importance": "core", "direction": "forward"},
+            {"source": "steve_jobs", "target": "apple", "label": "founded", "weight": 1.0, "importance": "core", "direction": "forward", "timeline": {"start_year": 1976}},
+            {"source": "steve_jobs", "target": "think_different", "label": "created", "weight": 0.9, "importance": "core", "direction": "forward", "timeline": {"start_year": 1997}},
+            {"source": "simplicity", "label": "applies_to", "target": "design_thinking", "weight": 0.85, "importance": "core", "direction": "forward"},
+            {"source": "simplicity", "label": "applies_to", "target": "iphone", "weight": 0.9, "importance": "core", "direction": "forward"},
+            {"source": "design_thinking", "label": "uses_method", "target": "simplicity_testing", "weight": 0.8, "importance": "important", "direction": "forward"},
+            {"source": "iphone", "label": "exemplifies", "target": "simplicity", "weight": 0.95, "importance": "core", "direction": "forward"},
+            {"source": "iphone", "label": "in_scenario", "target": "mobile_revolution", "weight": 0.95, "importance": "core", "direction": "forward", "timeline": {"start_year": 2007}},
+            {"source": "iphone", "label": "results_in", "target": "iphone_launch", "weight": 0.95, "importance": "core", "direction": "forward"},
+            {"source": "unify_ecosystem", "label": "leads_to_decision", "target": "iphone_decision", "weight": 0.85, "importance": "important", "direction": "forward", "timeline": {"start_year": 1997, "end_year": 2005}},
+            {"source": "iphone_decision", "label": "results_in", "target": "iphone_launch", "weight": 0.95, "importance": "core", "direction": "forward"},
+            {"source": "steve_jobs", "label": "collaborates_with", "target": "jony_ive", "weight": 0.9, "importance": "core", "direction": "bidirectional", "timeline": {"start_year": 1997, "end_year": 2011}},
+            {"source": "steve_jobs", "label": "mentors", "target": "tim_cook", "weight": 0.8, "importance": "important", "direction": "forward", "timeline": {"start_year": 2000, "end_year": 2011}},
+            {"source": "steve_jobs", "label": "founded", "target": "next", "weight": 0.85, "importance": "important", "direction": "forward", "timeline": {"start_year": 1985, "end_year": 1997}},
+            {"source": "jobs_fired", "label": "leads_to_decision", "target": "next", "weight": 0.8, "importance": "important", "direction": "forward", "timeline": {"start_year": 1985}},
+            {"source": "jobs_return", "label": "leads_to_decision", "target": "unify_ecosystem", "weight": 0.85, "importance": "important", "direction": "forward", "timeline": {"start_year": 1997}},
+            {"source": "consumer_electronics", "label": "in_scenario", "target": "iphone", "weight": 0.9, "importance": "core", "direction": "forward"},
+            {"source": "design_innovation", "label": "in_scenario", "target": "simplicity", "weight": 0.85, "importance": "important", "direction": "forward"},
         ];
-
-        // Node details data
-        const nodeDetails = {
-            'steve_jobs': {
-                type: 'Person',
-                description: 'Co-founder of Apple, founder of Pixar',
-                importance: 'Core',
-                time: '1955-2011',
-                tags: ['founder', 'innovator', 'designer', 'leader']
-            },
-            'iphone': {
-                type: 'Product',
-                description: 'Smartphone that redefined the mobile industry',
-                importance: 'Core',
-                time: '2007-',
-                tags: ['smartphone', 'mobile', 'consumer_electronics']
-            },
-            'simplicity': {
-                type: 'Concept',
-                description: 'Less is more, remove all unnecessary elements',
-                importance: 'Core',
-                time: null,
-                tags: ['philosophy', 'design_principle']
-            },
-            'apple': {
-                type: 'Company',
-                description: 'Technology company, maker of personal computers and smartphones',
-                importance: 'Core',
-                time: '1976-',
-                tags: ['technology', 'hardware', 'software']
-            },
-            'jobs_fired': {
-                type: 'Event',
-                description: 'Fired from Apple by the board of directors',
-                importance: 'Important',
-                time: '1985',
-                tags: ['failure', 'turning_point']
-            }
-        };
-
-        // Initialize network
-        const container = document.getElementById('network');
-        const data = {
-            nodes: new vis.DataSet(entities),
-            edges: new vis.DataSet(edges)
-        };
-
-        const options = {
-            nodes: {
-                shape: 'dot',
-                size: 20,
-                font: {
-                    size: 14,
-                    face: 'Tahoma'
-                },
-                borderWidth: 2
-            },
-            edges: {
-                width: 2,
-                smooth: {
-                    type: 'continuous'
-                },
-                arrows: {
-                    to: {enabled: true, scaleFactor: 0.5}
-                },
-                font: {
-                    size: 12,
-                    align: 'middle'
-                }
-            },
-            groups: {
-                person: {
-                    color: {background: '#007aff', border: '#0056cc'},
-                    font: {color: '#ffffff'}
-                },
-                company: {
-                    color: {background: '#34c759', border: '#2ca84a'},
-                    font: {color: '#ffffff'}
-                },
-                product: {
-                    color: {background: '#ff9500', border: '#e68500'},
-                    font: {color: '#ffffff'}
-                },
-                concept: {
-                    color: {background: '#af52de', border: '#8e44ad'},
-                    font: {color: '#ffffff'}
-                },
-                event: {
-                    color: {background: '#ff3b30', border: '#d70015'},
-                    font: {color: '#ffffff'}
-                },
-                technology: {
-                    color: {background: '#5ac8fa', border: '#34aadc'},
-                    font: {color: '#ffffff'}
-                }
-            },
-            physics: {
-                enabled: true,
-                stabilization: {
-                    iterations: 100
-                }
-            },
-            interaction: {
-                hover: true,
-                tooltipDelay: 200
-            }
-        };
-
-        const network = new vis.Network(container, data, options);
-
-        // Event handling
-        network.on('click', function(params) {
-            if (params.nodes.length > 0) {
-                const nodeId = params.nodes[0];
-                const node = entities.find(n => n.id === nodeId);
-                const details = nodeDetails[nodeId] || {
-                    type: node.group,
-                    description: 'No detailed description available',
-                    importance: 'Unknown',
-                    time: 'Unknown',
-                    tags: []
-                };
-
-                const typeClass = `type-${node.group}`;
-                const tagsHtml = details.tags.map(tag => 
-                    `<span style="background: #e5e5ea; padding: 2px 6px; border-radius: 4px; font-size: 12px; margin-right: 4px;">${tag}</span>`
-                ).join('');
-
-                document.getElementById('nodeDetails').innerHTML = `
-                    <div class="node-info">
-                        <h3>${node.label}</h3>
-                        <div><span class="node-type ${typeClass}">${details.type}</span></div>
-                        <p><strong>Description:</strong> ${details.description}</p>
-                        <p><strong>Importance:</strong> ${details.importance}</p>
-                        <p><strong>Time:</strong> ${details.time || 'N/A'}</p>
-                        <p><strong>Tags:</strong> ${tagsHtml}</p>
-                    </div>
-                `;
-            }
+        
+        // 构建图数据
+        const nodes = entities.map(e => ({...e}));
+        const links = relationships.map(r => ({
+            source: r.source,
+            target: r.target,
+            label: r.label,
+            weight: r.weight,
+            importance: r.importance,
+            direction: r.direction,
+            timeline: r.timeline
+        }));
+        
+        // 创建SVG
+        const width = document.getElementById('graph').clientWidth;
+        const height = document.getElementById('graph').clientHeight;
+        
+        const svg = d3.select('#graph')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height);
+        
+        // 添加箭头标记
+        svg.append('defs').selectAll('marker')
+            .data(['end'])
+            .enter().append('marker')
+            .attr('id', d => `arrow-${d}`)
+            .attr('viewBox', '0 -5 10 10')
+            .attr('refX', 20)
+            .attr('refY', 0)
+            .attr('markerWidth', 6)
+            .attr('markerHeight', 6)
+            .attr('orient', 'auto')
+            .append('path')
+            .attr('d', 'M0,-5L10,0L0,5')
+            .attr('fill', '#999');
+        
+        // 创建力导向图
+        const simulation = d3.forceSimulation(nodes)
+            .force('link', d3.forceLink(links)
+                .id(d => d.id)
+                .distance(d => 100 / (d.weight || 0.5)))
+            .force('charge', d3.forceManyBody().strength(-300))
+            .force('center', d3.forceCenter(width / 2, height / 2))
+            .force('collision', d3.forceCollide().radius(d => 20));
+        
+        // 绘制链接
+        const link = svg.selectAll('.link')
+            .data(links)
+            .enter().append('line')
+            .attr('class', 'link')
+            .attr('stroke-width', d => Math.max(1, d.weight * 3))
+            .attr('marker-end', 'url(#arrow-end)');
+        
+        // 绘制节点
+        const node = svg.selectAll('.node')
+            .data(nodes)
+            .enter().append('circle')
+            .attr('class', 'node')
+            .attr('r', d => {
+                const sizeMap = {'core': 18, 'important': 14, 'reference': 10};
+                return sizeMap[d.importance] || 12;
+            })
+            .attr('fill', d => d.color)
+            .call(d3.drag()
+                .on('start', dragstarted)
+                .on('drag', dragged)
+                .on('end', dragended))
+            .on('click', (event, d) => showNodeDetails(d));
+        
+        // 绘制节点标签
+        const label = svg.selectAll('.node-label')
+            .data(nodes)
+            .enter().append('text')
+            .attr('class', 'node-label')
+            .text(d => d.label)
+            .attr('font-size', d => {
+                const sizeMap = {'core': 12, 'important': 10, 'reference': 8};
+                return sizeMap[d.importance] || 9;
+            });
+        
+        // 更新位置
+        simulation.on('tick', () => {
+            link
+                .attr('x1', d => d.source.x)
+                .attr('y1', d => d.source.y)
+                .attr('x2', d => d.target.x)
+                .attr('y2', d => d.target.y);
+            
+            node
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y);
+            
+            label
+                .attr('x', d => d.x)
+                .attr('y', d => d.y + 4);
         });
-
-        // Control functions
-        function focusOnSteveJobs() {
-            network.focus('steve_jobs', {
-                scale: 1.5,
-                animation: {
-                    duration: 1000,
-                    easingFunction: 'easeInOutQuad'
-                }
+        
+        // 拖拽函数
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+        
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+        
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+        
+        // 显示节点详情
+        function showNodeDetails(d) {
+            const details = document.getElementById('node-details');
+            document.getElementById('detail-name').textContent = d.label;
+            document.getElementById('detail-type').textContent = `类型: ${d.type}`;
+            document.getElementById('detail-importance').textContent = `重要性: ${d.importance}`;
+            
+            let info = '';
+            if (d.role) info += `角色: ${d.role}<br>`;
+            if (d.category) info += `分类: ${d.category}<br>`;
+            if (d.definition) info += `定义: ${d.definition}<br>`;
+            if (d.year) info += `年份: ${d.year}<br>`;
+            if (d.launch_year) info += `发布年: ${d.launch_year}<br>`;
+            if (d.founded_year) info += `成立年: ${d.founded_year}<br>`;
+            if (d.impact) info += `影响: ${d.impact}`;
+            
+            document.getElementById('detail-info').innerHTML = info || '无额外信息';
+            details.style.display = 'block';
+        }
+        
+        // 控制选项
+        document.getElementById('show-labels').addEventListener('change', (e) => {
+            label.style('display', e.target.checked ? 'block' : 'none');
+        });
+        
+        document.getElementById('node-size').addEventListener('input', (e) => {
+            const scale = e.target.value / 15;
+            node.attr('r', d => {
+                const sizeMap = {'core': 18, 'important': 14, 'reference': 10};
+                return (sizeMap[d.importance] || 12) * scale;
             });
-            
-            // Highlight Steve Jobs and connected nodes
-            const connectedNodes = network.getConnectedNodes('steve_jobs');
-            const allNodes = entities.map(n => n.id);
-            const hiddenNodes = allNodes.filter(id => 
-                id !== 'steve_jobs' && !connectedNodes.includes(id)
-            );
-            
-            data.nodes.update(
-                hiddenNodes.map(id => ({id: id, hidden: true}))
-            );
-        }
-
-        function showAll() {
-            // Show all nodes
-            data.nodes.update(
-                entities.map(node => ({id: node.id, hidden: false}))
-            );
-            
-            network.fit({
-                animation: {
-                    duration: 1000,
-                    easingFunction: 'easeInOutQuad'
-                }
-            });
-        }
-
-        function exportGraph() {
-            const graphData = {
-                entities: entities,
-                edges: edges,
-                nodeDetails: nodeDetails
-            };
-            
-            const dataStr = JSON.stringify(graphData, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            
-            const exportFileDefaultName = 'steve_jobs_knowledge_graph.json';
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-        }
-
-        // Initialize with Steve Jobs focused
-        setTimeout(() => {
-            focusOnSteveJobs();
-        }, 500);
+        });
     </script>
 </body>
 </html>

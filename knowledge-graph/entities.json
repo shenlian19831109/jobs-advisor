@@ -1,362 +1,289 @@
-{
-  "entities": [
-    {
-      "id": "steve_jobs",
-      "name": "Steve Jobs",
-      "type": "Person",
-      "description": "Co-founder of Apple Inc., product design master, innovation leader",
-      "attributes": {
-        "birth_year": 1955,
-        "death_year": 2011,
-        "nationality": "American",
-        "main_achievements": [
-          "Apple co-founder",
-          "Pixar founder",
-          "iPhone creator",
-          "iPod creator",
-          "iPad creator"
-        ],
-        "core_ideas": [
-          "Simplicity philosophy",
-          "Reality distortion field",
-          "Think different",
-          "Pirate spirit",
-          "End-to-end control"
-        ],
-        "classic_quotes": [
-          "Stay hungry, stay foolish.",
-          "Think different.",
-          "Design is not just what it looks like and feels like. Design is how it works.",
-          "Simple can be harder than complex."
-        ],
-        "influence_domains": [
-          "Technology",
-          "Design",
-          "Entertainment",
-          "Business",
-          "Leadership"
-        ],
-        "importance": "core"
-      }
-    },
-    {
-      "id": "steve_wozniak",
-      "name": "Steve Wozniak",
-      "type": "Person",
-      "description": "Apple co-founder, technical genius",
-      "attributes": {
-        "birth_year": 1950,
-        "nationality": "American",
-        "role": "Technical co-founder of Apple",
-        "contribution": "Designed Apple I and Apple II",
-        "importance": "important"
-      }
-    },
-    {
-      "id": "tim_cook",
-      "name": "Tim Cook",
-      "type": "Person",
-      "description": "Apple CEO, operations master",
-      "attributes": {
-        "birth_year": 1960,
-        "role": "CEO of Apple Inc.",
-        "tenure_start": 2011,
-        "contribution": "Operations excellence, supply chain management",
-        "relationship": "Successor to Steve Jobs",
-        "importance": "important"
-      }
-    },
-    {
-      "id": "jony_ive",
-      "name": "Jony Ive",
-      "type": "Person",
-      "description": "Apple Chief Design Officer",
-      "attributes": {
-        "birth_year": 1967,
-        "nationality": "British",
-        "role": "Chief Design Officer at Apple",
-        "contribution": "Designed iMac, iPod, iPhone, iPad, MacBook",
-        "relationship": "Close collaborator with Steve Jobs",
-        "importance": "important"
-      }
-    },
-    {
-      "id": "apple",
-      "name": "Apple Inc.",
-      "type": "Company",
-      "description": "Technology company, iPhone manufacturer",
-      "attributes": {
-        "founded_year": 1976,
-        "founders": ["Steve Jobs", "Steve Wozniak", "Ronald Wayne"],
-        "headquarters": "Cupertino, California",
-        "industry": "Consumer electronics, Computer software, Online services",
-        "market_cap": "Over $3 trillion (peak)",
-        "key_products": ["iPhone", "iPad", "Mac", "Apple Watch", "Services"],
-        "importance": "core"
-      }
-    },
-    {
-      "id": "pixar",
-      "name": "Pixar Animation Studios",
-      "type": "Company",
-      "description": "Computer animation studio",
-      "attributes": {
-        "founded_year": 1986,
-        "acquisition_year": 2006,
-        "acquirer": "The Walt Disney Company",
-        "acquisition_price": "$7.4 billion",
-        "key_films": ["Toy Story", "Finding Nemo", "The Incredibles", "Up"],
-        "importance": "important"
-      }
-    },
-    {
-      "id": "next",
-      "name": "NeXT Inc.",
-      "type": "Company",
-      "description": "Computer company founded by Jobs after leaving Apple",
-      "attributes": {
-        "founded_year": 1985,
-        "founder": "Steve Jobs",
-        "acquisition_year": 1997,
-        "acquirer": "Apple Inc.",
-        "legacy": "NeXTSTEP became macOS foundation",
-        "importance": "secondary"
-      }
-    },
-    {
-      "id": "iphone",
-      "name": "iPhone",
-      "type": "Product",
-      "description": "Smartphone",
-      "attributes": {
-        "launch_year": 2007,
-        "category": "Smartphone",
-        "innovation_points": [
-          "Multi-touch screen",
-          "iOS operating system",
-          "App Store ecosystem",
-          "Mobile web browser"
-        ],
-        "sales": "Over 2 billion units",
-        "market_impact": "Redefined smartphone industry",
-        "design_features": ["Single Home button", "Glass front", "Aluminum body"],
-        "importance": "core"
-      }
-    },
-    {
-      "id": "macintosh",
-      "name": "Macintosh",
-      "type": "Product",
-      "description": "Personal computer",
-      "attributes": {
-        "launch_year": 1984,
-        "category": "Personal computer",
-        "innovation_points": [
-          "Graphical user interface",
-          "Mouse input",
-          "All-in-one design"
-        ],
-        "historical_significance": "First commercially successful GUI computer",
-        "design_features": ["Compact design", "Built-in monitor", "Friendly appearance"],
-        "importance": "core"
-      }
-    },
-    {
-      "id": "ipod",
-      "name": "iPod",
-      "type": "Product",
-      "description": "Digital music player",
-      "attributes": {
-        "launch_year": 2001,
-        "category": "Portable media player",
-        "innovation_points": [
-          "Click wheel interface",
-          "iTunes integration",
-          "1000 songs in your pocket"
-        ],
-        "sales": "Over 400 million units",
-        "market_impact": "Transformed music industry",
-        "design_features": ["Simple interface", "Compact size", "White earbuds"],
-        "importance": "important"
-      }
-    },
-    {
-      "id": "ipad",
-      "name": "iPad",
-      "type": "Product",
-      "description": "Tablet computer",
-      "attributes": {
-        "launch_year": 2010,
-        "category": "Tablet computer",
-        "innovation_points": [
-          "Created tablet category",
-          "Large multi-touch screen",
-          "Content consumption focus"
-        ],
-        "sales": "Over 500 million units",
-        "market_impact": "Defined tablet market",
-        "design_features": ["Thin design", "Glass front", "Aluminum back"],
-        "importance": "important"
-      }
-    },
-    {
-      "id": "simplicity",
-      "name": "Simplicity Philosophy",
-      "type": "Concept",
-      "description": "Less is more, focus on what matters most",
-      "attributes": {
-        "definition": "The philosophy that simplicity leads to better design and user experience",
-        "proposer": "Steve Jobs",
-        "application_domains": ["Product design", "User interface", "Business strategy"],
-        "key_principles": [
-          "Remove unnecessary elements",
-          "Focus on core value",
-          "Perfect remaining details"
-        ],
-        "typical_cases": ["iPhone design", "iPod interface", "Apple packaging"],
-        "importance": "core"
-      }
-    },
-    {
-      "id": "reality_distortion",
-      "name": "Reality Distortion Field",
-      "type": "Concept",
-      "description": "Ability to make impossible seem possible",
-      "attributes": {
-        "definition": "Jobs's ability to convince himself and others to believe almost anything",
-        "proposer": "Apple employees (term coined about Jobs)",
-        "application_domains": ["Leadership", "Team motivation", "Innovation"],
-        "manifestations": [
-          "Setting impossible deadlines",
-          "Making teams believe in vision",
-          "Overcoming skepticism"
-        ],
-        "typical_cases": ["Macintosh one-year development", "iPhone secret project"],
-        "importance": "core"
-      }
-    },
-    {
-      "id": "pirate_spirit",
-      "name": "Pirate Spirit",
-      "type": "Concept",
-      "description": "Small team innovation culture",
-      "attributes": {
-        "definition": "Culture of small, agile teams that can move quickly like pirates",
-        "proposer": "Steve Jobs",
-        "application_domains": ["Team management", "Startup culture", "Innovation"],
-        "key_principles": [
-          "Small teams (<100 people)",
-          "Flat hierarchy",
-          "Autonomy and responsibility"
-        ],
-        "typical_cases": ["Macintosh development team", "Early Apple team"],
-        "importance": "important"
-      }
-    },
-    {
-      "id": "think_different",
-      "name": "Think Different",
-      "type": "Concept",
-      "description": "Innovation through challenging conventions",
-      "attributes": {
-        "definition": "Philosophy of breaking industry norms and creating new categories",
-        "proposer": "Steve Jobs",
-        "application_domains": ["Innovation strategy", "Product development", "Marketing"],
-        "key_principles": [
-          "Challenge industry assumptions",
-          "Do the opposite of conventions",
-          "Create new categories"
-        ],
-        "typical_cases": ["Personal computer", "Digital music", "Smartphone"],
-        "importance": "core"
-      }
-    },
-    {
-      "id": "apple_founded",
-      "name": "Apple Founded",
-      "type": "Event",
-      "description": "Apple company founded in garage",
-      "attributes": {
-        "year": 1976,
-        "location": "Los Altos, California garage",
-        "founders": ["Steve Jobs", "Steve Wozniak", "Ronald Wayne"],
-        "significance": "Beginning of personal computer revolution",
-        "importance": "core"
-      }
-    },
-    {
-      "id": "mac_launch",
-      "name": "Macintosh Launch",
-      "type": "Event",
-      "description": "Macintosh computer launched",
-      "attributes": {
-        "year": 1984,
-        "event": "Apple's annual shareholder meeting",
-        "famous_ad": "\"1984\" commercial during Super Bowl",
-        "significance": "Introduction of GUI to mass market",
-        "importance": "important"
-      }
-    },
-    {
-      "id": "jobs_fired",
-      "name": "Jobs Fired from Apple",
-      "type": "Event",
-      "description": "Steve Jobs forced out of Apple",
-      "attributes": {
-        "year": 1985,
-        "reason": "Management conflicts, Macintosh poor sales",
-        "consequences": [
-          "Jobs founded NeXT",
-          "Jobs bought Pixar",
-          "Apple declined without Jobs"
-        ],
-        "significance": "Major turning point in Jobs's life",
-        "importance": "important"
-      }
-    },
-    {
-      "id": "iphone_launch",
-      "name": "iPhone Launch",
-      "type": "Event",
-      "description": "iPhone announced and launched",
-      "attributes": {
-        "year": 2007,
-        "event": "Macworld Conference & Expo",
-        "famous_quote": "\"Today, Apple is going to reinvent the phone\"",
-        "significance": "Beginning of smartphone era",
-        "importance": "core"
-      }
-    },
-    {
-      "id": "jobs_death",
-      "name": "Jobs's Death",
-      "type": "Event",
-      "description": "Steve Jobs passed away",
-      "attributes": {
-        "year": 2011,
-        "cause": "Pancreatic neuroendocrine tumor",
-        "age": 56,
-        "legacy": "One of most influential entrepreneurs of digital age",
-        "importance": "important"
-      }
-    }
-  ],
-  "metadata": {
-    "total_entities": 20,
-    "entity_types": {
-      "Person": 4,
-      "Company": 3,
-      "Product": 4,
-      "Concept": 4,
-      "Event": 5
-    },
-    "importance_distribution": {
-      "core": 8,
-      "important": 10,
-      "secondary": 2
-    },
-    "created_date": "2026-04-20",
-    "version": "1.0",
-    "source": "Steve Jobs research summary and public information"
+[
+  {
+    "id": "steve_jobs",
+    "label": "Steve Jobs",
+    "type": "Person",
+    "importance": "core",
+    "color": "#FF6B6B",
+    "role": "Founder & Visionary",
+    "birth_year": 1955,
+    "death_year": 2011
+  },
+  {
+    "id": "wozniak",
+    "label": "Steve Wozniak",
+    "type": "Person",
+    "importance": "important",
+    "color": "#FF6B6B",
+    "role": "Co-founder",
+    "contribution": "Technical genius"
+  },
+  {
+    "id": "jony_ive",
+    "label": "Jony Ive",
+    "type": "Person",
+    "importance": "important",
+    "color": "#FF6B6B",
+    "role": "Chief Designer",
+    "collaboration_period": "1997-2019"
+  },
+  {
+    "id": "tim_cook",
+    "label": "Tim Cook",
+    "type": "Person",
+    "importance": "important",
+    "color": "#FF6B6B",
+    "role": "CEO Successor",
+    "mentored_by": "steve_jobs"
+  },
+  {
+    "id": "bill_gates",
+    "label": "Bill Gates",
+    "type": "Person",
+    "importance": "reference",
+    "color": "#FF6B6B",
+    "role": "Competitor"
+  },
+  {
+    "id": "apple",
+    "label": "Apple",
+    "type": "Organization",
+    "importance": "core",
+    "color": "#4ECDC4",
+    "founded_year": 1976,
+    "industry": "Technology"
+  },
+  {
+    "id": "pixar",
+    "label": "Pixar",
+    "type": "Organization",
+    "importance": "important",
+    "color": "#4ECDC4",
+    "founded_year": 1986,
+    "industry": "Animation"
+  },
+  {
+    "id": "next",
+    "label": "NeXT",
+    "type": "Organization",
+    "importance": "important",
+    "color": "#4ECDC4",
+    "founded_year": 1985,
+    "industry": "Computing"
+  },
+  {
+    "id": "disney",
+    "label": "Disney",
+    "type": "Organization",
+    "importance": "important",
+    "color": "#4ECDC4",
+    "acquired_pixar": 2006
+  },
+  {
+    "id": "simplicity",
+    "label": "Simplicity Philosophy",
+    "type": "Concept",
+    "importance": "core",
+    "color": "#95E1D3",
+    "category": "Design Philosophy",
+    "definition": "Less is more"
+  },
+  {
+    "id": "reality_distortion",
+    "label": "Reality Distortion Field",
+    "type": "Concept",
+    "importance": "core",
+    "color": "#95E1D3",
+    "category": "Leadership",
+    "definition": "Making impossible possible"
+  },
+  {
+    "id": "pirate_spirit",
+    "label": "Pirate Spirit",
+    "type": "Concept",
+    "importance": "important",
+    "color": "#95E1D3",
+    "category": "Culture",
+    "definition": "Small team beats big company"
+  },
+  {
+    "id": "think_different",
+    "label": "Think Different",
+    "type": "Concept",
+    "importance": "important",
+    "color": "#95E1D3",
+    "category": "Brand Philosophy"
+  },
+  {
+    "id": "end_to_end",
+    "label": "End-to-End Control",
+    "type": "Concept",
+    "importance": "important",
+    "color": "#95E1D3",
+    "category": "Strategy"
+  },
+  {
+    "id": "design_thinking",
+    "label": "Design Thinking",
+    "type": "Method",
+    "importance": "core",
+    "color": "#F38181",
+    "steps": [
+      "Empathize",
+      "Define",
+      "Ideate",
+      "Prototype",
+      "Test"
+    ]
+  },
+  {
+    "id": "simplicity_testing",
+    "label": "Simplicity Testing",
+    "type": "Method",
+    "importance": "important",
+    "color": "#F38181",
+    "steps": [
+      "Remove features",
+      "Test",
+      "Iterate"
+    ]
+  },
+  {
+    "id": "user_experience_focus",
+    "label": "User Experience Focus",
+    "type": "Method",
+    "importance": "important",
+    "color": "#F38181"
+  },
+  {
+    "id": "iterative_refinement",
+    "label": "Iterative Refinement",
+    "type": "Method",
+    "importance": "important",
+    "color": "#F38181"
+  },
+  {
+    "id": "iphone",
+    "label": "iPhone",
+    "type": "Product",
+    "importance": "core",
+    "color": "#AA96DA",
+    "launch_year": 2007,
+    "impact": "Revolutionary"
+  },
+  {
+    "id": "ipad",
+    "label": "iPad",
+    "type": "Product",
+    "importance": "important",
+    "color": "#AA96DA",
+    "launch_year": 2010
+  },
+  {
+    "id": "macintosh",
+    "label": "Macintosh",
+    "type": "Product",
+    "importance": "important",
+    "color": "#AA96DA",
+    "launch_year": 1984
+  },
+  {
+    "id": "ipod",
+    "label": "iPod",
+    "type": "Product",
+    "importance": "important",
+    "color": "#AA96DA",
+    "launch_year": 2001
+  },
+  {
+    "id": "founding_apple",
+    "label": "Apple Founded",
+    "type": "Event",
+    "importance": "core",
+    "color": "#FCBAD3",
+    "year": 1976
+  },
+  {
+    "id": "iphone_launch",
+    "label": "iPhone Launch",
+    "type": "Event",
+    "importance": "core",
+    "color": "#FCBAD3",
+    "year": 2007,
+    "impact": "Industry transformation"
+  },
+  {
+    "id": "jobs_fired",
+    "label": "Jobs Fired from Apple",
+    "type": "Event",
+    "importance": "important",
+    "color": "#FCBAD3",
+    "year": 1985
+  },
+  {
+    "id": "jobs_return",
+    "label": "Jobs Returns to Apple",
+    "type": "Event",
+    "importance": "important",
+    "color": "#FCBAD3",
+    "year": 1997
+  },
+  {
+    "id": "cancer_diagnosis",
+    "label": "Cancer Diagnosis",
+    "type": "Event",
+    "importance": "important",
+    "color": "#FCBAD3",
+    "year": 2003
+  },
+  {
+    "id": "consumer_electronics",
+    "label": "Consumer Electronics Market",
+    "type": "Scenario",
+    "importance": "core",
+    "color": "#FFD93D",
+    "market_size": "Trillion dollars"
+  },
+  {
+    "id": "mobile_revolution",
+    "label": "Mobile Revolution Era",
+    "type": "Scenario",
+    "importance": "core",
+    "color": "#FFD93D",
+    "period": "2007-2011"
+  },
+  {
+    "id": "design_innovation",
+    "label": "Design Innovation",
+    "type": "Scenario",
+    "importance": "important",
+    "color": "#FFD93D"
+  },
+  {
+    "id": "remove_floppy",
+    "label": "Remove Floppy Drive",
+    "type": "Decision",
+    "importance": "important",
+    "color": "#A8E6CF",
+    "year": 1998,
+    "impact": "Controversial but forward-thinking"
+  },
+  {
+    "id": "unify_ecosystem",
+    "label": "Unify Hardware & Software",
+    "type": "Decision",
+    "importance": "core",
+    "color": "#A8E6CF",
+    "year": 1997,
+    "impact": "Competitive advantage"
+  },
+  {
+    "id": "iphone_decision",
+    "label": "Enter Mobile Market",
+    "type": "Decision",
+    "importance": "core",
+    "color": "#A8E6CF",
+    "year": 2005,
+    "impact": "Changed industry forever"
   }
-}
+]
