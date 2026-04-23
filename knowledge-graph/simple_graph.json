@@ -538,7 +538,7 @@
   ],
   "metadata": {
     "total_nodes": 38,
-    "total_edges": 37,
+    "total_edges": 43,
     "simplified_nodes": 32,
     "simplified_edges": 34,
     "description": "Simplified knowledge graph with core and important relationships"

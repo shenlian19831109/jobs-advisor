@@ -316,5 +316,54 @@
     "weight": 0.95,
     "importance": "core",
     "direction": "forward"
+  },
+  {
+    "source": "pixar_films",
+    "target": "pixar",
+    "type": "created_by",
+    "weight": 0.85,
+    "importance": "reference",
+    "direction": "backward"
+  },
+  {
+    "source": "pixar",
+    "target": "steve_jobs",
+    "type": "founded_by",
+    "weight": 0.8,
+    "importance": "reference",
+    "direction": "backward"
+  },
+  {
+    "source": "pixar_investment",
+    "target": "pixar",
+    "type": "leads_to",
+    "weight": 0.75,
+    "importance": "reference",
+    "direction": "forward"
+  },
+  {
+    "source": "apple",
+    "target": "wozniak",
+    "type": "founded_by",
+    "weight": 0.85,
+    "importance": "reference",
+    "direction": "backward"
+  },
+  {
+    "source": "steve_jobs",
+    "target": "wozniak",
+    "type": "collaborates_with",
+    "weight": 0.7,
+    "importance": "reference",
+    "direction": "bidirectional"
+  },
+  {
+    "source": "steve_jobs",
+    "target": "jobs_death",
+    "type": "leads_to",
+    "weight": 0.6,
+    "importance": "reference",
+    "direction": "forward",
+    "year": 2011
   }
 ]
