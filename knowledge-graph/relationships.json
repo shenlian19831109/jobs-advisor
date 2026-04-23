@@ -2,188 +2,319 @@
   {
     "source": "steve_jobs",
     "target": "simplicity",
-    "label": "advocates",
+    "type": "advocates",
     "weight": 0.95,
     "importance": "core",
     "direction": "forward",
-    "timeline": {
-      "start_year": 1980,
-      "end_year": 2011
-    }
+    "start_year": 1997,
+    "end_year": 2011
   },
   {
     "source": "steve_jobs",
     "target": "reality_distortion",
-    "label": "exemplifies",
+    "type": "advocates",
     "weight": 0.95,
     "importance": "core",
-    "direction": "forward"
+    "direction": "forward",
+    "start_year": 1985,
+    "end_year": 2011
   },
   {
     "source": "steve_jobs",
-    "target": "apple",
-    "label": "founded",
-    "weight": 1.0,
+    "target": "end_to_end",
+    "type": "advocates",
+    "weight": 0.9,
     "importance": "core",
     "direction": "forward",
-    "timeline": {
-      "start_year": 1976
-    }
+    "start_year": 1997,
+    "end_year": 2011
   },
   {
     "source": "steve_jobs",
     "target": "think_different",
-    "label": "created",
-    "weight": 0.9,
+    "type": "advocates",
+    "weight": 0.85,
     "importance": "core",
     "direction": "forward",
-    "timeline": {
-      "start_year": 1997
-    }
+    "start_year": 1997,
+    "end_year": 2011
+  },
+  {
+    "source": "steve_jobs",
+    "target": "pirate_spirit",
+    "type": "advocates",
+    "weight": 0.8,
+    "importance": "important",
+    "direction": "forward",
+    "start_year": 1985,
+    "end_year": 1997
   },
   {
     "source": "simplicity",
-    "label": "applies_to",
     "target": "design_thinking",
-    "weight": 0.85,
+    "type": "applies_to",
+    "weight": 0.9,
     "importance": "core",
     "direction": "forward"
   },
   {
     "source": "simplicity",
-    "label": "applies_to",
-    "target": "iphone",
+    "target": "simplicity_testing",
+    "type": "applies_to",
+    "weight": 0.95,
+    "importance": "core",
+    "direction": "forward"
+  },
+  {
+    "source": "simplicity",
+    "target": "minimalism",
+    "type": "applies_to",
+    "weight": 0.85,
+    "importance": "core",
+    "direction": "forward"
+  },
+  {
+    "source": "end_to_end",
+    "target": "integration",
+    "type": "applies_to",
     "weight": 0.9,
     "importance": "core",
+    "direction": "forward"
+  },
+  {
+    "source": "reality_distortion",
+    "target": "perfectionism",
+    "type": "applies_to",
+    "weight": 0.8,
+    "importance": "important",
+    "direction": "forward"
+  },
+  {
+    "source": "think_different",
+    "target": "storytelling",
+    "type": "applies_to",
+    "weight": 0.85,
+    "importance": "important",
     "direction": "forward"
   },
   {
     "source": "design_thinking",
-    "label": "uses_method",
-    "target": "simplicity_testing",
+    "target": "iphone",
+    "type": "exemplified_by",
+    "weight": 0.9,
+    "importance": "core",
+    "direction": "backward"
+  },
+  {
+    "source": "simplicity_testing",
+    "target": "iphone",
+    "type": "exemplified_by",
+    "weight": 0.9,
+    "importance": "core",
+    "direction": "backward"
+  },
+  {
+    "source": "ux_focus",
+    "target": "iphone",
+    "type": "exemplified_by",
+    "weight": 0.85,
+    "importance": "core",
+    "direction": "backward"
+  },
+  {
+    "source": "minimalism",
+    "target": "iphone",
+    "type": "exemplified_by",
     "weight": 0.8,
     "importance": "important",
-    "direction": "forward"
+    "direction": "backward"
+  },
+  {
+    "source": "retail_design",
+    "target": "apple_store",
+    "type": "exemplified_by",
+    "weight": 0.95,
+    "importance": "core",
+    "direction": "backward"
+  },
+  {
+    "source": "storytelling",
+    "target": "iphone",
+    "type": "exemplified_by",
+    "weight": 0.75,
+    "importance": "important",
+    "direction": "backward"
   },
   {
     "source": "iphone",
-    "label": "exemplifies",
-    "target": "simplicity",
+    "target": "apple",
+    "type": "created_by",
     "weight": 0.95,
     "importance": "core",
-    "direction": "forward"
+    "direction": "backward",
+    "start_year": 2007
   },
   {
-    "source": "iphone",
-    "label": "in_scenario",
-    "target": "mobile_revolution",
-    "weight": 0.95,
-    "importance": "core",
-    "direction": "forward",
-    "timeline": {
-      "start_year": 2007
-    }
+    "source": "ipad",
+    "target": "apple",
+    "type": "created_by",
+    "weight": 0.9,
+    "importance": "important",
+    "direction": "backward",
+    "start_year": 2010
   },
   {
-    "source": "iphone",
-    "label": "results_in",
-    "target": "iphone_launch",
-    "weight": 0.95,
-    "importance": "core",
-    "direction": "forward"
-  },
-  {
-    "source": "unify_ecosystem",
-    "label": "leads_to_decision",
-    "target": "iphone_decision",
+    "source": "imac",
+    "target": "apple",
+    "type": "created_by",
     "weight": 0.85,
     "importance": "important",
-    "direction": "forward",
-    "timeline": {
-      "start_year": 1997,
-      "end_year": 2005
-    }
+    "direction": "backward",
+    "start_year": 1998
   },
   {
-    "source": "iphone_decision",
-    "label": "results_in",
-    "target": "iphone_launch",
+    "source": "apple",
+    "target": "steve_jobs",
+    "type": "founded_by",
     "weight": 0.95,
     "importance": "core",
+    "direction": "backward"
+  },
+  {
+    "source": "apple",
+    "target": "jony_ive",
+    "type": "led_by",
+    "weight": 0.85,
+    "importance": "important",
     "direction": "forward"
+  },
+  {
+    "source": "next",
+    "target": "steve_jobs",
+    "type": "founded_by",
+    "weight": 0.95,
+    "importance": "important",
+    "direction": "backward"
   },
   {
     "source": "steve_jobs",
-    "label": "collaborates_with",
     "target": "jony_ive",
+    "type": "collaborates_with",
     "weight": 0.9,
     "importance": "core",
     "direction": "bidirectional",
-    "timeline": {
-      "start_year": 1997,
-      "end_year": 2011
-    }
+    "start_year": 1997,
+    "end_year": 2011
   },
   {
     "source": "steve_jobs",
-    "label": "mentors",
     "target": "tim_cook",
-    "weight": 0.8,
+    "type": "mentors",
+    "weight": 0.75,
     "importance": "important",
     "direction": "forward",
-    "timeline": {
-      "start_year": 2000,
-      "end_year": 2011
-    }
+    "start_year": 1997,
+    "end_year": 2011
   },
   {
     "source": "steve_jobs",
-    "label": "founded",
-    "target": "next",
-    "weight": 0.85,
-    "importance": "important",
-    "direction": "forward",
-    "timeline": {
-      "start_year": 1985,
-      "end_year": 1997
-    }
+    "target": "bill_gates",
+    "type": "competes_with",
+    "weight": 0.3,
+    "importance": "reference",
+    "direction": "bidirectional"
   },
   {
     "source": "jobs_fired",
-    "label": "leads_to_decision",
-    "target": "next",
-    "weight": 0.8,
-    "importance": "important",
-    "direction": "forward",
-    "timeline": {
-      "start_year": 1985
-    }
-  },
-  {
-    "source": "jobs_return",
-    "label": "leads_to_decision",
-    "target": "unify_ecosystem",
+    "target": "next_founded",
+    "type": "leads_to",
     "weight": 0.85,
     "importance": "important",
     "direction": "forward",
-    "timeline": {
-      "start_year": 1997
-    }
+    "start_year": 1985
   },
   {
-    "source": "consumer_electronics",
-    "label": "in_scenario",
+    "source": "next_founded",
+    "target": "pixar_investment",
+    "type": "leads_to",
+    "weight": 0.7,
+    "importance": "reference",
+    "direction": "forward",
+    "start_year": 1985
+  },
+  {
+    "source": "pixar_investment",
+    "target": "jobs_return",
+    "type": "leads_to",
+    "weight": 0.65,
+    "importance": "reference",
+    "direction": "forward",
+    "start_year": 1986
+  },
+  {
+    "source": "jobs_return",
+    "target": "iphone_launch",
+    "type": "leads_to",
+    "weight": 0.8,
+    "importance": "core",
+    "direction": "forward",
+    "start_year": 1997
+  },
+  {
+    "source": "iphone",
+    "target": "ipad",
+    "type": "enables",
+    "weight": 0.75,
+    "importance": "important",
+    "direction": "forward",
+    "start_year": 2007
+  },
+  {
+    "source": "iphone",
+    "target": "macbook",
+    "type": "complements",
+    "weight": 0.7,
+    "importance": "important",
+    "direction": "bidirectional"
+  },
+  {
+    "source": "itunes",
     "target": "iphone",
-    "weight": 0.9,
+    "type": "supports",
+    "weight": 0.8,
+    "importance": "important",
+    "direction": "forward"
+  },
+  {
+    "source": "iphone",
+    "target": "consumer_electronics",
+    "type": "in_scenario",
+    "weight": 0.95,
     "importance": "core",
     "direction": "forward"
   },
   {
-    "source": "design_innovation",
-    "label": "in_scenario",
-    "target": "simplicity",
+    "source": "imac",
+    "target": "personal_computing",
+    "type": "in_scenario",
     "weight": 0.85,
     "importance": "important",
+    "direction": "forward"
+  },
+  {
+    "source": "itunes",
+    "target": "digital_media",
+    "type": "in_scenario",
+    "weight": 0.8,
+    "importance": "important",
+    "direction": "forward"
+  },
+  {
+    "source": "apple_store",
+    "target": "retail_experience",
+    "type": "in_scenario",
+    "weight": 0.95,
+    "importance": "core",
     "direction": "forward"
   }
 ]

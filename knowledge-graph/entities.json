@@ -1,289 +1,288 @@
 [
   {
     "id": "steve_jobs",
-    "label": "Steve Jobs",
+    "name": "Steve Jobs",
     "type": "Person",
     "importance": "core",
-    "color": "#FF6B6B",
-    "role": "Founder & Visionary",
+    "description": "Apple创始人，设计哲学家",
     "birth_year": 1955,
     "death_year": 2011
   },
   {
-    "id": "wozniak",
-    "label": "Steve Wozniak",
-    "type": "Person",
-    "importance": "important",
-    "color": "#FF6B6B",
-    "role": "Co-founder",
-    "contribution": "Technical genius"
-  },
-  {
-    "id": "jony_ive",
-    "label": "Jony Ive",
-    "type": "Person",
-    "importance": "important",
-    "color": "#FF6B6B",
-    "role": "Chief Designer",
-    "collaboration_period": "1997-2019"
-  },
-  {
-    "id": "tim_cook",
-    "label": "Tim Cook",
-    "type": "Person",
-    "importance": "important",
-    "color": "#FF6B6B",
-    "role": "CEO Successor",
-    "mentored_by": "steve_jobs"
-  },
-  {
-    "id": "bill_gates",
-    "label": "Bill Gates",
-    "type": "Person",
-    "importance": "reference",
-    "color": "#FF6B6B",
-    "role": "Competitor"
-  },
-  {
-    "id": "apple",
-    "label": "Apple",
-    "type": "Organization",
-    "importance": "core",
-    "color": "#4ECDC4",
-    "founded_year": 1976,
-    "industry": "Technology"
-  },
-  {
-    "id": "pixar",
-    "label": "Pixar",
-    "type": "Organization",
-    "importance": "important",
-    "color": "#4ECDC4",
-    "founded_year": 1986,
-    "industry": "Animation"
-  },
-  {
-    "id": "next",
-    "label": "NeXT",
-    "type": "Organization",
-    "importance": "important",
-    "color": "#4ECDC4",
-    "founded_year": 1985,
-    "industry": "Computing"
-  },
-  {
-    "id": "disney",
-    "label": "Disney",
-    "type": "Organization",
-    "importance": "important",
-    "color": "#4ECDC4",
-    "acquired_pixar": 2006
-  },
-  {
     "id": "simplicity",
-    "label": "Simplicity Philosophy",
+    "name": "Simplicity Philosophy",
     "type": "Concept",
     "importance": "core",
-    "color": "#95E1D3",
-    "category": "Design Philosophy",
-    "definition": "Less is more"
+    "description": "少即是多，专注核心",
+    "period": "1997-2011"
   },
   {
     "id": "reality_distortion",
-    "label": "Reality Distortion Field",
+    "name": "Reality Distortion Field",
     "type": "Concept",
     "importance": "core",
-    "color": "#95E1D3",
-    "category": "Leadership",
-    "definition": "Making impossible possible"
+    "description": "让不可能变为可能的能力",
+    "period": "1985-2011"
   },
   {
     "id": "pirate_spirit",
-    "label": "Pirate Spirit",
+    "name": "Pirate Spirit",
     "type": "Concept",
     "importance": "important",
-    "color": "#95E1D3",
-    "category": "Culture",
-    "definition": "Small team beats big company"
+    "description": "小团队打败大公司的精神",
+    "period": "1985-1997"
   },
   {
     "id": "think_different",
-    "label": "Think Different",
+    "name": "Think Different",
     "type": "Concept",
     "importance": "important",
-    "color": "#95E1D3",
-    "category": "Brand Philosophy"
+    "description": "挑战常规，创造新品类",
+    "period": "1997-2011"
   },
   {
     "id": "end_to_end",
-    "label": "End-to-End Control",
+    "name": "End-to-End Control",
     "type": "Concept",
-    "importance": "important",
-    "color": "#95E1D3",
-    "category": "Strategy"
+    "importance": "core",
+    "description": "硬件+软件+服务一体化",
+    "period": "1997-2011"
   },
   {
     "id": "design_thinking",
-    "label": "Design Thinking",
+    "name": "Design Thinking",
     "type": "Method",
     "importance": "core",
-    "color": "#F38181",
-    "steps": [
-      "Empathize",
-      "Define",
-      "Ideate",
-      "Prototype",
-      "Test"
-    ]
+    "description": "以用户为中心的设计方法"
   },
   {
     "id": "simplicity_testing",
-    "label": "Simplicity Testing",
+    "name": "Simplicity Testing",
     "type": "Method",
-    "importance": "important",
-    "color": "#F38181",
-    "steps": [
-      "Remove features",
-      "Test",
-      "Iterate"
-    ]
+    "importance": "core",
+    "description": "不断测试和简化产品"
   },
   {
-    "id": "user_experience_focus",
-    "label": "User Experience Focus",
+    "id": "ux_focus",
+    "name": "User Experience Focus",
     "type": "Method",
     "importance": "important",
-    "color": "#F38181"
+    "description": "极致的用户体验设计"
   },
   {
-    "id": "iterative_refinement",
-    "label": "Iterative Refinement",
+    "id": "minimalism",
+    "name": "Product Minimalism",
     "type": "Method",
     "importance": "important",
-    "color": "#F38181"
+    "description": "产品最小化原则"
+  },
+  {
+    "id": "integration",
+    "name": "Integration Strategy",
+    "type": "Method",
+    "importance": "important",
+    "description": "硬件软件深度集成"
+  },
+  {
+    "id": "perfectionism",
+    "name": "Perfectionism",
+    "type": "Method",
+    "importance": "important",
+    "description": "追求完美的执行"
+  },
+  {
+    "id": "storytelling",
+    "name": "Storytelling",
+    "type": "Method",
+    "importance": "important",
+    "description": "通过故事传达价值"
+  },
+  {
+    "id": "retail_design",
+    "name": "Retail Experience Design",
+    "type": "Method",
+    "importance": "important",
+    "description": "零售体验设计"
   },
   {
     "id": "iphone",
-    "label": "iPhone",
+    "name": "iPhone",
     "type": "Product",
     "importance": "core",
-    "color": "#AA96DA",
-    "launch_year": 2007,
-    "impact": "Revolutionary"
+    "description": "革命性的智能手机",
+    "launch_year": 2007
   },
   {
     "id": "ipad",
-    "label": "iPad",
+    "name": "iPad",
     "type": "Product",
     "importance": "important",
-    "color": "#AA96DA",
+    "description": "平板电脑品类创造者",
     "launch_year": 2010
   },
   {
-    "id": "macintosh",
-    "label": "Macintosh",
+    "id": "imac",
+    "name": "iMac",
     "type": "Product",
     "importance": "important",
-    "color": "#AA96DA",
-    "launch_year": 1984
+    "description": "一体化个人电脑",
+    "launch_year": 1998
   },
   {
-    "id": "ipod",
-    "label": "iPod",
+    "id": "macbook",
+    "name": "MacBook",
     "type": "Product",
     "importance": "important",
-    "color": "#AA96DA",
+    "description": "轻薄笔记本电脑",
+    "launch_year": 2006
+  },
+  {
+    "id": "apple_store",
+    "name": "Apple Store",
+    "type": "Product",
+    "importance": "important",
+    "description": "零售体验革命",
     "launch_year": 2001
   },
   {
-    "id": "founding_apple",
-    "label": "Apple Founded",
-    "type": "Event",
-    "importance": "core",
-    "color": "#FCBAD3",
-    "year": 1976
+    "id": "itunes",
+    "name": "iTunes",
+    "type": "Product",
+    "importance": "important",
+    "description": "数字音乐平台",
+    "launch_year": 2001
   },
   {
-    "id": "iphone_launch",
-    "label": "iPhone Launch",
-    "type": "Event",
+    "id": "pixar_films",
+    "name": "Pixar Films",
+    "type": "Product",
+    "importance": "reference",
+    "description": "动画电影作品",
+    "launch_year": 1995
+  },
+  {
+    "id": "apple",
+    "name": "Apple",
+    "type": "Organization",
     "importance": "core",
-    "color": "#FCBAD3",
-    "year": 2007,
-    "impact": "Industry transformation"
+    "description": "苹果公司"
+  },
+  {
+    "id": "next",
+    "name": "NeXT",
+    "type": "Organization",
+    "importance": "important",
+    "description": "NeXT计算机公司"
+  },
+  {
+    "id": "pixar",
+    "name": "Pixar",
+    "type": "Organization",
+    "importance": "reference",
+    "description": "皮克斯动画工作室"
+  },
+  {
+    "id": "jony_ive",
+    "name": "Jony Ive",
+    "type": "Person",
+    "importance": "important",
+    "description": "首席设计官，设计合作者"
+  },
+  {
+    "id": "tim_cook",
+    "name": "Tim Cook",
+    "type": "Person",
+    "importance": "important",
+    "description": "COO，继任者"
+  },
+  {
+    "id": "wozniak",
+    "name": "Steve Wozniak",
+    "type": "Person",
+    "importance": "reference",
+    "description": "Apple联合创始人"
+  },
+  {
+    "id": "bill_gates",
+    "name": "Bill Gates",
+    "type": "Person",
+    "importance": "reference",
+    "description": "Microsoft创始人，竞争对手"
   },
   {
     "id": "jobs_fired",
-    "label": "Jobs Fired from Apple",
+    "name": "Jobs Fired",
     "type": "Event",
     "importance": "important",
-    "color": "#FCBAD3",
+    "description": "被迫离开Apple",
     "year": 1985
   },
   {
-    "id": "jobs_return",
-    "label": "Jobs Returns to Apple",
+    "id": "next_founded",
+    "name": "NeXT Founded",
     "type": "Event",
     "importance": "important",
-    "color": "#FCBAD3",
+    "description": "创立NeXT公司",
+    "year": 1985
+  },
+  {
+    "id": "pixar_investment",
+    "name": "Pixar Investment",
+    "type": "Event",
+    "importance": "reference",
+    "description": "投资Pixar",
+    "year": 1986
+  },
+  {
+    "id": "jobs_return",
+    "name": "Jobs Return",
+    "type": "Event",
+    "importance": "core",
+    "description": "重返Apple",
     "year": 1997
   },
   {
-    "id": "cancer_diagnosis",
-    "label": "Cancer Diagnosis",
+    "id": "iphone_launch",
+    "name": "iPhone Launch",
     "type": "Event",
-    "importance": "important",
-    "color": "#FCBAD3",
-    "year": 2003
+    "importance": "core",
+    "description": "iPhone发布会",
+    "year": 2007
+  },
+  {
+    "id": "jobs_death",
+    "name": "Jobs Death",
+    "type": "Event",
+    "importance": "reference",
+    "description": "Steve Jobs去世",
+    "year": 2011
   },
   {
     "id": "consumer_electronics",
-    "label": "Consumer Electronics Market",
+    "name": "Consumer Electronics",
     "type": "Scenario",
     "importance": "core",
-    "color": "#FFD93D",
-    "market_size": "Trillion dollars"
+    "description": "消费电子产品市场"
   },
   {
-    "id": "mobile_revolution",
-    "label": "Mobile Revolution Era",
-    "type": "Scenario",
-    "importance": "core",
-    "color": "#FFD93D",
-    "period": "2007-2011"
-  },
-  {
-    "id": "design_innovation",
-    "label": "Design Innovation",
+    "id": "personal_computing",
+    "name": "Personal Computing",
     "type": "Scenario",
     "importance": "important",
-    "color": "#FFD93D"
+    "description": "个人计算机市场"
   },
   {
-    "id": "remove_floppy",
-    "label": "Remove Floppy Drive",
-    "type": "Decision",
+    "id": "digital_media",
+    "name": "Digital Media",
+    "type": "Scenario",
     "importance": "important",
-    "color": "#A8E6CF",
-    "year": 1998,
-    "impact": "Controversial but forward-thinking"
+    "description": "数字媒体市场"
   },
   {
-    "id": "unify_ecosystem",
-    "label": "Unify Hardware & Software",
-    "type": "Decision",
-    "importance": "core",
-    "color": "#A8E6CF",
-    "year": 1997,
-    "impact": "Competitive advantage"
-  },
-  {
-    "id": "iphone_decision",
-    "label": "Enter Mobile Market",
-    "type": "Decision",
-    "importance": "core",
-    "color": "#A8E6CF",
-    "year": 2005,
-    "impact": "Changed industry forever"
+    "id": "retail_experience",
+    "name": "Retail Experience",
+    "type": "Scenario",
+    "importance": "important",
+    "description": "零售体验市场"
   }
 ]

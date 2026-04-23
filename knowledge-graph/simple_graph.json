@@ -2,478 +2,545 @@
   "nodes": [
     {
       "id": "steve_jobs",
-      "label": "Steve Jobs",
+      "name": "Steve Jobs",
       "type": "Person",
       "importance": "core",
-      "color": "#FF6B6B",
-      "role": "Founder & Visionary",
+      "description": "Apple创始人，设计哲学家",
       "birth_year": 1955,
       "death_year": 2011
     },
     {
-      "id": "wozniak",
-      "label": "Steve Wozniak",
-      "type": "Person",
-      "importance": "important",
-      "color": "#FF6B6B",
-      "role": "Co-founder",
-      "contribution": "Technical genius"
-    },
-    {
-      "id": "jony_ive",
-      "label": "Jony Ive",
-      "type": "Person",
-      "importance": "important",
-      "color": "#FF6B6B",
-      "role": "Chief Designer",
-      "collaboration_period": "1997-2019"
-    },
-    {
-      "id": "tim_cook",
-      "label": "Tim Cook",
-      "type": "Person",
-      "importance": "important",
-      "color": "#FF6B6B",
-      "role": "CEO Successor",
-      "mentored_by": "steve_jobs"
-    },
-    {
-      "id": "apple",
-      "label": "Apple",
-      "type": "Organization",
-      "importance": "core",
-      "color": "#4ECDC4",
-      "founded_year": 1976,
-      "industry": "Technology"
-    },
-    {
-      "id": "pixar",
-      "label": "Pixar",
-      "type": "Organization",
-      "importance": "important",
-      "color": "#4ECDC4",
-      "founded_year": 1986,
-      "industry": "Animation"
-    },
-    {
-      "id": "next",
-      "label": "NeXT",
-      "type": "Organization",
-      "importance": "important",
-      "color": "#4ECDC4",
-      "founded_year": 1985,
-      "industry": "Computing"
-    },
-    {
-      "id": "disney",
-      "label": "Disney",
-      "type": "Organization",
-      "importance": "important",
-      "color": "#4ECDC4",
-      "acquired_pixar": 2006
-    },
-    {
       "id": "simplicity",
-      "label": "Simplicity Philosophy",
+      "name": "Simplicity Philosophy",
       "type": "Concept",
       "importance": "core",
-      "color": "#95E1D3",
-      "category": "Design Philosophy",
-      "definition": "Less is more"
+      "description": "少即是多，专注核心",
+      "period": "1997-2011"
     },
     {
       "id": "reality_distortion",
-      "label": "Reality Distortion Field",
+      "name": "Reality Distortion Field",
       "type": "Concept",
       "importance": "core",
-      "color": "#95E1D3",
-      "category": "Leadership",
-      "definition": "Making impossible possible"
+      "description": "让不可能变为可能的能力",
+      "period": "1985-2011"
     },
     {
       "id": "pirate_spirit",
-      "label": "Pirate Spirit",
+      "name": "Pirate Spirit",
       "type": "Concept",
       "importance": "important",
-      "color": "#95E1D3",
-      "category": "Culture",
-      "definition": "Small team beats big company"
+      "description": "小团队打败大公司的精神",
+      "period": "1985-1997"
     },
     {
       "id": "think_different",
-      "label": "Think Different",
+      "name": "Think Different",
       "type": "Concept",
       "importance": "important",
-      "color": "#95E1D3",
-      "category": "Brand Philosophy"
+      "description": "挑战常规，创造新品类",
+      "period": "1997-2011"
     },
     {
       "id": "end_to_end",
-      "label": "End-to-End Control",
+      "name": "End-to-End Control",
       "type": "Concept",
-      "importance": "important",
-      "color": "#95E1D3",
-      "category": "Strategy"
+      "importance": "core",
+      "description": "硬件+软件+服务一体化",
+      "period": "1997-2011"
     },
     {
       "id": "design_thinking",
-      "label": "Design Thinking",
+      "name": "Design Thinking",
       "type": "Method",
       "importance": "core",
-      "color": "#F38181",
-      "steps": [
-        "Empathize",
-        "Define",
-        "Ideate",
-        "Prototype",
-        "Test"
-      ]
+      "description": "以用户为中心的设计方法"
     },
     {
       "id": "simplicity_testing",
-      "label": "Simplicity Testing",
+      "name": "Simplicity Testing",
       "type": "Method",
-      "importance": "important",
-      "color": "#F38181",
-      "steps": [
-        "Remove features",
-        "Test",
-        "Iterate"
-      ]
+      "importance": "core",
+      "description": "不断测试和简化产品"
     },
     {
-      "id": "user_experience_focus",
-      "label": "User Experience Focus",
+      "id": "ux_focus",
+      "name": "User Experience Focus",
       "type": "Method",
       "importance": "important",
-      "color": "#F38181"
+      "description": "极致的用户体验设计"
     },
     {
-      "id": "iterative_refinement",
-      "label": "Iterative Refinement",
+      "id": "minimalism",
+      "name": "Product Minimalism",
       "type": "Method",
       "importance": "important",
-      "color": "#F38181"
+      "description": "产品最小化原则"
+    },
+    {
+      "id": "integration",
+      "name": "Integration Strategy",
+      "type": "Method",
+      "importance": "important",
+      "description": "硬件软件深度集成"
+    },
+    {
+      "id": "perfectionism",
+      "name": "Perfectionism",
+      "type": "Method",
+      "importance": "important",
+      "description": "追求完美的执行"
+    },
+    {
+      "id": "storytelling",
+      "name": "Storytelling",
+      "type": "Method",
+      "importance": "important",
+      "description": "通过故事传达价值"
+    },
+    {
+      "id": "retail_design",
+      "name": "Retail Experience Design",
+      "type": "Method",
+      "importance": "important",
+      "description": "零售体验设计"
     },
     {
       "id": "iphone",
-      "label": "iPhone",
+      "name": "iPhone",
       "type": "Product",
       "importance": "core",
-      "color": "#AA96DA",
-      "launch_year": 2007,
-      "impact": "Revolutionary"
+      "description": "革命性的智能手机",
+      "launch_year": 2007
     },
     {
       "id": "ipad",
-      "label": "iPad",
+      "name": "iPad",
       "type": "Product",
       "importance": "important",
-      "color": "#AA96DA",
+      "description": "平板电脑品类创造者",
       "launch_year": 2010
     },
     {
-      "id": "macintosh",
-      "label": "Macintosh",
+      "id": "imac",
+      "name": "iMac",
       "type": "Product",
       "importance": "important",
-      "color": "#AA96DA",
-      "launch_year": 1984
+      "description": "一体化个人电脑",
+      "launch_year": 1998
     },
     {
-      "id": "ipod",
-      "label": "iPod",
+      "id": "macbook",
+      "name": "MacBook",
       "type": "Product",
       "importance": "important",
-      "color": "#AA96DA",
+      "description": "轻薄笔记本电脑",
+      "launch_year": 2006
+    },
+    {
+      "id": "apple_store",
+      "name": "Apple Store",
+      "type": "Product",
+      "importance": "important",
+      "description": "零售体验革命",
       "launch_year": 2001
     },
     {
-      "id": "founding_apple",
-      "label": "Apple Founded",
-      "type": "Event",
-      "importance": "core",
-      "color": "#FCBAD3",
-      "year": 1976
+      "id": "itunes",
+      "name": "iTunes",
+      "type": "Product",
+      "importance": "important",
+      "description": "数字音乐平台",
+      "launch_year": 2001
     },
     {
-      "id": "iphone_launch",
-      "label": "iPhone Launch",
-      "type": "Event",
+      "id": "apple",
+      "name": "Apple",
+      "type": "Organization",
       "importance": "core",
-      "color": "#FCBAD3",
-      "year": 2007,
-      "impact": "Industry transformation"
+      "description": "苹果公司"
+    },
+    {
+      "id": "next",
+      "name": "NeXT",
+      "type": "Organization",
+      "importance": "important",
+      "description": "NeXT计算机公司"
+    },
+    {
+      "id": "jony_ive",
+      "name": "Jony Ive",
+      "type": "Person",
+      "importance": "important",
+      "description": "首席设计官，设计合作者"
+    },
+    {
+      "id": "tim_cook",
+      "name": "Tim Cook",
+      "type": "Person",
+      "importance": "important",
+      "description": "COO，继任者"
     },
     {
       "id": "jobs_fired",
-      "label": "Jobs Fired from Apple",
+      "name": "Jobs Fired",
       "type": "Event",
       "importance": "important",
-      "color": "#FCBAD3",
+      "description": "被迫离开Apple",
+      "year": 1985
+    },
+    {
+      "id": "next_founded",
+      "name": "NeXT Founded",
+      "type": "Event",
+      "importance": "important",
+      "description": "创立NeXT公司",
       "year": 1985
     },
     {
       "id": "jobs_return",
-      "label": "Jobs Returns to Apple",
+      "name": "Jobs Return",
       "type": "Event",
-      "importance": "important",
-      "color": "#FCBAD3",
+      "importance": "core",
+      "description": "重返Apple",
       "year": 1997
     },
     {
-      "id": "cancer_diagnosis",
-      "label": "Cancer Diagnosis",
+      "id": "iphone_launch",
+      "name": "iPhone Launch",
       "type": "Event",
-      "importance": "important",
-      "color": "#FCBAD3",
-      "year": 2003
+      "importance": "core",
+      "description": "iPhone发布会",
+      "year": 2007
     },
     {
       "id": "consumer_electronics",
-      "label": "Consumer Electronics Market",
+      "name": "Consumer Electronics",
       "type": "Scenario",
       "importance": "core",
-      "color": "#FFD93D",
-      "market_size": "Trillion dollars"
+      "description": "消费电子产品市场"
     },
     {
-      "id": "mobile_revolution",
-      "label": "Mobile Revolution Era",
-      "type": "Scenario",
-      "importance": "core",
-      "color": "#FFD93D",
-      "period": "2007-2011"
-    },
-    {
-      "id": "design_innovation",
-      "label": "Design Innovation",
+      "id": "personal_computing",
+      "name": "Personal Computing",
       "type": "Scenario",
       "importance": "important",
-      "color": "#FFD93D"
+      "description": "个人计算机市场"
     },
     {
-      "id": "remove_floppy",
-      "label": "Remove Floppy Drive",
-      "type": "Decision",
+      "id": "digital_media",
+      "name": "Digital Media",
+      "type": "Scenario",
       "importance": "important",
-      "color": "#A8E6CF",
-      "year": 1998,
-      "impact": "Controversial but forward-thinking"
+      "description": "数字媒体市场"
     },
     {
-      "id": "unify_ecosystem",
-      "label": "Unify Hardware & Software",
-      "type": "Decision",
-      "importance": "core",
-      "color": "#A8E6CF",
-      "year": 1997,
-      "impact": "Competitive advantage"
-    },
-    {
-      "id": "iphone_decision",
-      "label": "Enter Mobile Market",
-      "type": "Decision",
-      "importance": "core",
-      "color": "#A8E6CF",
-      "year": 2005,
-      "impact": "Changed industry forever"
+      "id": "retail_experience",
+      "name": "Retail Experience",
+      "type": "Scenario",
+      "importance": "important",
+      "description": "零售体验市场"
     }
   ],
   "edges": [
     {
       "source": "steve_jobs",
       "target": "simplicity",
-      "label": "advocates",
+      "type": "advocates",
       "weight": 0.95,
       "importance": "core",
       "direction": "forward",
-      "timeline": {
-        "start_year": 1980,
-        "end_year": 2011
-      }
+      "start_year": 1997,
+      "end_year": 2011
     },
     {
       "source": "steve_jobs",
       "target": "reality_distortion",
-      "label": "exemplifies",
+      "type": "advocates",
       "weight": 0.95,
       "importance": "core",
-      "direction": "forward"
+      "direction": "forward",
+      "start_year": 1985,
+      "end_year": 2011
     },
     {
       "source": "steve_jobs",
-      "target": "apple",
-      "label": "founded",
-      "weight": 1.0,
+      "target": "end_to_end",
+      "type": "advocates",
+      "weight": 0.9,
       "importance": "core",
       "direction": "forward",
-      "timeline": {
-        "start_year": 1976
-      }
+      "start_year": 1997,
+      "end_year": 2011
     },
     {
       "source": "steve_jobs",
       "target": "think_different",
-      "label": "created",
-      "weight": 0.9,
+      "type": "advocates",
+      "weight": 0.85,
       "importance": "core",
       "direction": "forward",
-      "timeline": {
-        "start_year": 1997
-      }
+      "start_year": 1997,
+      "end_year": 2011
+    },
+    {
+      "source": "steve_jobs",
+      "target": "pirate_spirit",
+      "type": "advocates",
+      "weight": 0.8,
+      "importance": "important",
+      "direction": "forward",
+      "start_year": 1985,
+      "end_year": 1997
     },
     {
       "source": "simplicity",
-      "label": "applies_to",
       "target": "design_thinking",
-      "weight": 0.85,
+      "type": "applies_to",
+      "weight": 0.9,
       "importance": "core",
       "direction": "forward"
     },
     {
       "source": "simplicity",
-      "label": "applies_to",
-      "target": "iphone",
+      "target": "simplicity_testing",
+      "type": "applies_to",
+      "weight": 0.95,
+      "importance": "core",
+      "direction": "forward"
+    },
+    {
+      "source": "simplicity",
+      "target": "minimalism",
+      "type": "applies_to",
+      "weight": 0.85,
+      "importance": "core",
+      "direction": "forward"
+    },
+    {
+      "source": "end_to_end",
+      "target": "integration",
+      "type": "applies_to",
       "weight": 0.9,
       "importance": "core",
+      "direction": "forward"
+    },
+    {
+      "source": "reality_distortion",
+      "target": "perfectionism",
+      "type": "applies_to",
+      "weight": 0.8,
+      "importance": "important",
+      "direction": "forward"
+    },
+    {
+      "source": "think_different",
+      "target": "storytelling",
+      "type": "applies_to",
+      "weight": 0.85,
+      "importance": "important",
       "direction": "forward"
     },
     {
       "source": "design_thinking",
-      "label": "uses_method",
-      "target": "simplicity_testing",
+      "target": "iphone",
+      "type": "exemplified_by",
+      "weight": 0.9,
+      "importance": "core",
+      "direction": "backward"
+    },
+    {
+      "source": "simplicity_testing",
+      "target": "iphone",
+      "type": "exemplified_by",
+      "weight": 0.9,
+      "importance": "core",
+      "direction": "backward"
+    },
+    {
+      "source": "ux_focus",
+      "target": "iphone",
+      "type": "exemplified_by",
+      "weight": 0.85,
+      "importance": "core",
+      "direction": "backward"
+    },
+    {
+      "source": "minimalism",
+      "target": "iphone",
+      "type": "exemplified_by",
       "weight": 0.8,
       "importance": "important",
-      "direction": "forward"
+      "direction": "backward"
+    },
+    {
+      "source": "retail_design",
+      "target": "apple_store",
+      "type": "exemplified_by",
+      "weight": 0.95,
+      "importance": "core",
+      "direction": "backward"
+    },
+    {
+      "source": "storytelling",
+      "target": "iphone",
+      "type": "exemplified_by",
+      "weight": 0.75,
+      "importance": "important",
+      "direction": "backward"
     },
     {
       "source": "iphone",
-      "label": "exemplifies",
-      "target": "simplicity",
+      "target": "apple",
+      "type": "created_by",
       "weight": 0.95,
       "importance": "core",
-      "direction": "forward"
+      "direction": "backward",
+      "start_year": 2007
     },
     {
-      "source": "iphone",
-      "label": "in_scenario",
-      "target": "mobile_revolution",
-      "weight": 0.95,
-      "importance": "core",
-      "direction": "forward",
-      "timeline": {
-        "start_year": 2007
-      }
+      "source": "ipad",
+      "target": "apple",
+      "type": "created_by",
+      "weight": 0.9,
+      "importance": "important",
+      "direction": "backward",
+      "start_year": 2010
     },
     {
-      "source": "iphone",
-      "label": "results_in",
-      "target": "iphone_launch",
-      "weight": 0.95,
-      "importance": "core",
-      "direction": "forward"
-    },
-    {
-      "source": "unify_ecosystem",
-      "label": "leads_to_decision",
-      "target": "iphone_decision",
+      "source": "imac",
+      "target": "apple",
+      "type": "created_by",
       "weight": 0.85,
       "importance": "important",
-      "direction": "forward",
-      "timeline": {
-        "start_year": 1997,
-        "end_year": 2005
-      }
+      "direction": "backward",
+      "start_year": 1998
     },
     {
-      "source": "iphone_decision",
-      "label": "results_in",
-      "target": "iphone_launch",
+      "source": "apple",
+      "target": "steve_jobs",
+      "type": "founded_by",
       "weight": 0.95,
       "importance": "core",
+      "direction": "backward"
+    },
+    {
+      "source": "apple",
+      "target": "jony_ive",
+      "type": "led_by",
+      "weight": 0.85,
+      "importance": "important",
       "direction": "forward"
+    },
+    {
+      "source": "next",
+      "target": "steve_jobs",
+      "type": "founded_by",
+      "weight": 0.95,
+      "importance": "important",
+      "direction": "backward"
     },
     {
       "source": "steve_jobs",
-      "label": "collaborates_with",
       "target": "jony_ive",
+      "type": "collaborates_with",
       "weight": 0.9,
       "importance": "core",
       "direction": "bidirectional",
-      "timeline": {
-        "start_year": 1997,
-        "end_year": 2011
-      }
+      "start_year": 1997,
+      "end_year": 2011
     },
     {
       "source": "steve_jobs",
-      "label": "mentors",
       "target": "tim_cook",
-      "weight": 0.8,
+      "type": "mentors",
+      "weight": 0.75,
       "importance": "important",
       "direction": "forward",
-      "timeline": {
-        "start_year": 2000,
-        "end_year": 2011
-      }
-    },
-    {
-      "source": "steve_jobs",
-      "label": "founded",
-      "target": "next",
-      "weight": 0.85,
-      "importance": "important",
-      "direction": "forward",
-      "timeline": {
-        "start_year": 1985,
-        "end_year": 1997
-      }
+      "start_year": 1997,
+      "end_year": 2011
     },
     {
       "source": "jobs_fired",
-      "label": "leads_to_decision",
-      "target": "next",
-      "weight": 0.8,
-      "importance": "important",
-      "direction": "forward",
-      "timeline": {
-        "start_year": 1985
-      }
-    },
-    {
-      "source": "jobs_return",
-      "label": "leads_to_decision",
-      "target": "unify_ecosystem",
+      "target": "next_founded",
+      "type": "leads_to",
       "weight": 0.85,
       "importance": "important",
       "direction": "forward",
-      "timeline": {
-        "start_year": 1997
-      }
+      "start_year": 1985
     },
     {
-      "source": "consumer_electronics",
-      "label": "in_scenario",
+      "source": "jobs_return",
+      "target": "iphone_launch",
+      "type": "leads_to",
+      "weight": 0.8,
+      "importance": "core",
+      "direction": "forward",
+      "start_year": 1997
+    },
+    {
+      "source": "iphone",
+      "target": "ipad",
+      "type": "enables",
+      "weight": 0.75,
+      "importance": "important",
+      "direction": "forward",
+      "start_year": 2007
+    },
+    {
+      "source": "iphone",
+      "target": "macbook",
+      "type": "complements",
+      "weight": 0.7,
+      "importance": "important",
+      "direction": "bidirectional"
+    },
+    {
+      "source": "itunes",
       "target": "iphone",
-      "weight": 0.9,
+      "type": "supports",
+      "weight": 0.8,
+      "importance": "important",
+      "direction": "forward"
+    },
+    {
+      "source": "iphone",
+      "target": "consumer_electronics",
+      "type": "in_scenario",
+      "weight": 0.95,
       "importance": "core",
       "direction": "forward"
     },
     {
-      "source": "design_innovation",
-      "label": "in_scenario",
-      "target": "simplicity",
+      "source": "imac",
+      "target": "personal_computing",
+      "type": "in_scenario",
       "weight": 0.85,
       "importance": "important",
+      "direction": "forward"
+    },
+    {
+      "source": "itunes",
+      "target": "digital_media",
+      "type": "in_scenario",
+      "weight": 0.8,
+      "importance": "important",
+      "direction": "forward"
+    },
+    {
+      "source": "apple_store",
+      "target": "retail_experience",
+      "type": "in_scenario",
+      "weight": 0.95,
+      "importance": "core",
       "direction": "forward"
     }
   ],
   "metadata": {
-    "total_nodes": 33,
-    "total_edges": 19,
+    "total_nodes": 38,
+    "total_edges": 37,
     "simplified_nodes": 32,
-    "simplified_edges": 19,
-    "description": "Simplified knowledge graph with core and important relationships only"
+    "simplified_edges": 34,
+    "description": "Simplified knowledge graph with core and important relationships"
   }
 }
