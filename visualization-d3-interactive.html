@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steve Jobs 知识图谱 - D3.js交互式网状结构</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+            color: #e0e0e0;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        
+        #canvas {
+            flex: 1;
+            background: #0f0f1e;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sidebar {
+            width: 380px;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+            border-left: 1px solid #333;
+            overflow-y: auto;
+            padding: 20px;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .sidebar h2 {
+            margin-bottom: 15px;
+            color: #fff;
+            font-size: 16px;
+            border-bottom: 2px solid #00d4ff;
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .stats {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding: 5px 0;
+        }
+        
+        .stat-label {
+            color: #aaa;
+        }
+        
+        .stat-value {
+            color: #00d4ff;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .legend {
+            margin-bottom: 20px;
+        }
+        
+        .legend-title {
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 12px;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .legend-item:hover {
+            background: rgba(0, 212, 255, 0.1);
+        }
+        
+        .legend-color {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .node-info {
+            background: rgba(0, 212, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 12px;
+            display: none;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        .node-info.active {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .node-info h3 {
+            color: #00d4ff;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .node-info p {
+            margin-bottom: 8px;
+            line-height: 1.5;
+            color: #ccc;
+        }
+        
+        .node-info .label {
+            color: #888;
+            display: inline-block;
+            width: 70px;
+            font-weight: 500;
+        }
+        
+        .controls {
+            background: rgba(0, 212, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        .control-group {
+            margin-bottom: 12px;
+        }
+        
+        .control-label {
+            display: block;
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .checkbox-label {
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .checkbox-label:hover {
+            background: rgba(0, 212, 255, 0.1);
+        }
+        
+        input[type="checkbox"] {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        
+        .slider-group {
+            margin-bottom: 12px;
+        }
+        
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 11px;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(0, 212, 255, 0.2);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #00d4ff;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #00d4ff;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+        }
+        
+        .search-box {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            color: #e0e0e0;
+            font-size: 12px;
+        }
+        
+        .search-box::placeholder {
+            color: #666;
+        }
+        
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: #00d4ff;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 1000;
+            display: none;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+        
+        .zoom-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+        
+        .zoom-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: #00d4ff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .zoom-btn:hover {
+            background: rgba(0, 212, 255, 0.2);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+        
+        .stats-mini {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .stat-card {
+            background: rgba(0, 212, 255, 0.05);
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            text-align: center;
+        }
+        
+        .stat-card-value {
+            color: #00d4ff;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .stat-card-label {
+            color: #888;
+            font-size: 10px;
+            margin-top: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="canvas">
+            <svg id="graph-svg"></svg>
+            <div class="zoom-controls">
+                <button class="zoom-btn" id="zoom-in" title="放大">+</button>
+                <button class="zoom-btn" id="zoom-out" title="缩小">−</button>
+                <button class="zoom-btn" id="reset-view" title="重置">⟲</button>
+            </div>
+        </div>
+        
+        <div class="sidebar">
+            <h2>📊 知识图谱分析</h2>
+            
+            <div class="stats-mini">
+                <div class="stat-card">
+                    <div class="stat-card-value" id="total-nodes-mini">33</div>
+                    <div class="stat-card-label">节点</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-value" id="total-edges-mini">34</div>
+                    <div class="stat-card-label">关系</div>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-label">核心关系</span>
+                    <span class="stat-value" id="core-edges">14</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">重要关系</span>
+                    <span class="stat-value" id="important-edges">14</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">参考关系</span>
+                    <span class="stat-value" id="reference-edges">6</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">网络密度</span>
+                    <span class="stat-value" id="density">0.06</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">平均度数</span>
+                    <span class="stat-value" id="avg-degree">2.06</span>
+                </div>
+            </div>
+            
+            <h2>🔍 搜索</h2>
+            <input type="text" class="search-box" id="search-box" placeholder="输入节点名称...">
+            
+            <h2>⚙️ 控制</h2>
+            <div class="controls">
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>节点大小</span>
+                        <span id="node-size-value">1.0x</span>
+                    </div>
+                    <input type="range" id="node-size" min="0.5" max="3" step="0.1" value="1">
+                </div>
+                
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>链接强度</span>
+                        <span id="link-strength-value">1.0x</span>
+                    </div>
+                    <input type="range" id="link-strength" min="0.1" max="3" step="0.1" value="1">
+                </div>
+                
+                <div class="control-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="show-labels" checked>
+                        显示标签
+                    </label>
+                </div>
+                <div class="control-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="show-arrows" checked>
+                        显示箭头
+                    </label>
+                </div>
+                <div class="control-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="show-reference">
+                        显示参考关系
+                    </label>
+                </div>
+            </div>
+            
+            <h2>🎨 节点类型</h2>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ff6b6b;"></div>
+                    <span>人物 (Person)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #4a9eff;"></div>
+                    <span>概念 (Concept)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #51cf66;"></div>
+                    <span>方法 (Method)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ffd43b;"></div>
+                    <span>产品 (Product)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ff922b;"></div>
+                    <span>组织 (Organization)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #da77f2;"></div>
+                    <span>事件 (Event)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #74c0fc;"></div>
+                    <span>场景 (Scenario)</span>
+                </div>
+            </div>
+            
+            <h2>ℹ️ 节点详情</h2>
+            <div class="node-info" id="node-info">
+                <h3 id="node-name">-</h3>
+                <p><span class="label">类型:</span> <span id="node-type">-</span></p>
+                <p><span class="label">重要性:</span> <span id="node-importance">-</span></p>
+                <p><span class="label">描述:</span> <span id="node-description">-</span></p>
+                <p id="node-period" style="display:none;"><span class="label">时期:</span> <span id="node-period-value">-</span></p>
+                <p id="node-degree" style="display:none;"><span class="label">连接数:</span> <span id="node-degree-value">-</span></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="tooltip" id="tooltip"></div>
+    
+    <script>
+        // 内嵌数据
+        const graphData = {
+            "nodes": [{"id": "steve_jobs", "name": "Steve Jobs", "type": "Person", "importance": "core", "description": "Apple创始人，设计哲学家", "birth_year": 1955, "death_year": 2011}, {"id": "simplicity", "name": "Simplicity Philosophy", "type": "Concept", "importance": "core", "description": "少即是多，专注核心", "period": "1997-2011"}, {"id": "reality_distortion", "name": "Reality Distortion Field", "type": "Concept", "importance": "core", "description": "让不可能变为可能的能力", "period": "1985-2011"}, {"id": "pirate_spirit", "name": "Pirate Spirit", "type": "Concept", "importance": "important", "description": "小团队打败大公司的精神", "period": "1985-1997"}, {"id": "think_different", "name": "Think Different", "type": "Concept", "importance": "important", "description": "挑战常规，创造新品类", "period": "1997-2011"}, {"id": "end_to_end", "name": "End-to-End Control", "type": "Concept", "importance": "core", "description": "硬件+软件+服务一体化", "period": "1997-2011"}, {"id": "design_thinking", "name": "Design Thinking", "type": "Method", "importance": "core", "description": "以用户为中心的设计方法"}, {"id": "simplicity_testing", "name": "Simplicity Testing", "type": "Method", "importance": "core", "description": "不断测试和简化产品"}, {"id": "ux_focus", "name": "User Experience Focus", "type": "Method", "importance": "important", "description": "极致的用户体验设计"}, {"id": "minimalism", "name": "Product Minimalism", "type": "Method", "importance": "important", "description": "产品最小化原则"}, {"id": "integration", "name": "Integration Strategy", "type": "Method", "importance": "important", "description": "硬件软件深度集成"}, {"id": "perfectionism", "name": "Perfectionism", "type": "Method", "importance": "important", "description": "追求完美的执行"}, {"id": "storytelling", "name": "Storytelling", "type": "Method", "importance": "important", "description": "通过故事传达价值"}, {"id": "retail_design", "name": "Retail Experience Design", "type": "Method", "importance": "important", "description": "零售体验设计"}, {"id": "iphone", "name": "iPhone", "type": "Product", "importance": "core", "description": "革命性的智能手机", "launch_year": 2007}, {"id": "ipad", "name": "iPad", "type": "Product", "importance": "important", "description": "平板电脑品类创造者", "launch_year": 2010}, {"id": "imac", "name": "iMac", "type": "Product", "importance": "important", "description": "一体化个人电脑", "launch_year": 1998}, {"id": "macbook", "name": "MacBook", "type": "Product", "importance": "important", "description": "轻薄笔记本电脑", "launch_year": 2006}, {"id": "apple_store", "name": "Apple Store", "type": "Product", "importance": "important", "description": "零售体验革命", "launch_year": 2001}, {"id": "itunes", "name": "iTunes", "type": "Product", "importance": "important", "description": "数字音乐平台", "launch_year": 2001}, {"id": "pixar_films", "name": "Pixar Films", "type": "Product", "importance": "reference", "description": "动画电影作品", "launch_year": 1995}, {"id": "apple", "name": "Apple", "type": "Organization", "importance": "core", "description": "苹果公司"}, {"id": "next", "name": "NeXT", "type": "Organization", "importance": "important", "description": "NeXT计算机公司"}, {"id": "pixar", "name": "Pixar", "type": "Organization", "importance": "reference", "description": "皮克斯动画工作室"}, {"id": "jony_ive", "name": "Jony Ive", "type": "Person", "importance": "important", "description": "首席设计官，设计合作者"}, {"id": "tim_cook", "name": "Tim Cook", "type": "Person", "importance": "important", "description": "COO，继任者"}, {"id": "wozniak", "name": "Steve Wozniak", "type": "Person", "importance": "reference", "description": "Apple联合创始人"}, {"id": "bill_gates", "name": "Bill Gates", "type": "Person", "importance": "reference", "description": "Microsoft创始人，竞争对手"}, {"id": "jobs_fired", "name": "Jobs Fired", "type": "Event", "importance": "important", "description": "被迫离开Apple", "year": 1985}, {"id": "next_founded", "name": "NeXT Founded", "type": "Event", "importance": "important", "description": "创立NeXT公司", "year": 1985}, {"id": "pixar_investment", "name": "Pixar Investment", "type": "Event", "importance": "reference", "description": "投资Pixar", "year": 1986}, {"id": "jobs_return", "name": "Jobs Return", "type": "Event", "importance": "core", "description": "重返Apple", "year": 1997}, {"id": "iphone_launch", "name": "iPhone Launch", "type": "Event", "importance": "core", "description": "iPhone发布会", "year": 2007}, {"id": "jobs_death", "name": "Jobs Death", "type": "Event", "importance": "reference", "description": "Steve Jobs去世", "year": 2011}, {"id": "consumer_electronics", "name": "Consumer Electronics", "type": "Scenario", "importance": "core", "description": "消费电子产品市场"}, {"id": "personal_computing", "name": "Personal Computing", "type": "Scenario", "importance": "important", "description": "个人计算机市场"}, {"id": "digital_media", "name": "Digital Media", "type": "Scenario", "importance": "important", "description": "数字媒体市场"}, {"id": "retail_experience", "name": "Retail Experience", "type": "Scenario", "importance": "important", "description": "零售体验市场"}],
+            "edges": [{"source": "steve_jobs", "target": "simplicity", "type": "advocates", "weight": 0.95, "importance": "core", "direction": "forward", "start_year": 1997, "end_year": 2011}, {"source": "steve_jobs", "target": "reality_distortion", "type": "advocates", "weight": 0.95, "importance": "core", "direction": "forward", "start_year": 1985, "end_year": 2011}, {"source": "steve_jobs", "target": "end_to_end", "type": "advocates", "weight": 0.9, "importance": "core", "direction": "forward", "start_year": 1997, "end_year": 2011}, {"source": "steve_jobs", "target": "think_different", "type": "advocates", "weight": 0.85, "importance": "core", "direction": "forward", "start_year": 1997, "end_year": 2011}, {"source": "steve_jobs", "target": "pirate_spirit", "type": "advocates", "weight": 0.8, "importance": "important", "direction": "forward", "start_year": 1985, "end_year": 1997}, {"source": "simplicity", "target": "design_thinking", "type": "applies_to", "weight": 0.9, "importance": "core", "direction": "forward"}, {"source": "simplicity", "target": "simplicity_testing", "type": "applies_to", "weight": 0.95, "importance": "core", "direction": "forward"}, {"source": "simplicity", "target": "minimalism", "type": "applies_to", "weight": 0.85, "importance": "core", "direction": "forward"}, {"source": "end_to_end", "target": "integration", "type": "applies_to", "weight": 0.9, "importance": "core", "direction": "forward"}, {"source": "reality_distortion", "target": "perfectionism", "type": "applies_to", "weight": 0.8, "importance": "important", "direction": "forward"}, {"source": "think_different", "target": "storytelling", "type": "applies_to", "weight": 0.85, "importance": "important", "direction": "forward"}, {"source": "design_thinking", "target": "iphone", "type": "exemplified_by", "weight": 0.9, "importance": "core", "direction": "backward"}, {"source": "simplicity_testing", "target": "iphone", "type": "exemplified_by", "weight": 0.9, "importance": "core", "direction": "backward"}, {"source": "ux_focus", "target": "iphone", "type": "exemplified_by", "weight": 0.85, "importance": "core", "direction": "backward"}, {"source": "minimalism", "target": "iphone", "type": "exemplified_by", "weight": 0.8, "importance": "important", "direction": "backward"}, {"source": "retail_design", "target": "apple_store", "type": "exemplified_by", "weight": 0.95, "importance": "core", "direction": "backward"}, {"source": "storytelling", "target": "iphone", "type": "exemplified_by", "weight": 0.75, "importance": "important", "direction": "backward"}, {"source": "iphone", "target": "apple", "type": "created_by", "weight": 0.95, "importance": "core", "direction": "backward", "start_year": 2007}, {"source": "ipad", "target": "apple", "type": "created_by", "weight": 0.9, "importance": "important", "direction": "backward", "start_year": 2010}, {"source": "imac", "target": "apple", "type": "created_by", "weight": 0.85, "importance": "important", "direction": "backward", "start_year": 1998}, {"source": "apple", "target": "steve_jobs", "type": "founded_by", "weight": 0.95, "importance": "core", "direction": "backward"}, {"source": "apple", "target": "jony_ive", "type": "led_by", "weight": 0.85, "importance": "important", "direction": "forward"}, {"source": "next", "target": "steve_jobs", "type": "founded_by", "weight": 0.95, "importance": "important", "direction": "backward"}, {"source": "steve_jobs", "target": "jony_ive", "type": "collaborates_with", "weight": 0.9, "importance": "core", "direction": "bidirectional", "start_year": 1997, "end_year": 2011}, {"source": "steve_jobs", "target": "tim_cook", "type": "mentors", "weight": 0.75, "importance": "important", "direction": "forward", "start_year": 1997, "end_year": 2011}, {"source": "steve_jobs", "target": "bill_gates", "type": "competes_with", "weight": 0.3, "importance": "reference", "direction": "bidirectional"}, {"source": "jobs_fired", "target": "next_founded", "type": "leads_to", "weight": 0.85, "importance": "important", "direction": "forward", "start_year": 1985}, {"source": "next_founded", "target": "pixar_investment", "type": "leads_to", "weight": 0.7, "importance": "reference", "direction": "forward", "start_year": 1985}, {"source": "pixar_investment", "target": "jobs_return", "type": "leads_to", "weight": 0.65, "importance": "reference", "direction": "forward", "start_year": 1986}, {"source": "jobs_return", "target": "iphone_launch", "type": "leads_to", "weight": 0.8, "importance": "core", "direction": "forward", "start_year": 1997}, {"source": "iphone", "target": "ipad", "type": "enables", "weight": 0.75, "importance": "important", "direction": "forward", "start_year": 2007}, {"source": "iphone", "target": "macbook", "type": "complements", "weight": 0.7, "importance": "important", "direction": "bidirectional"}, {"source": "itunes", "target": "iphone", "type": "supports", "weight": 0.8, "importance": "important", "direction": "forward"}, {"source": "iphone", "target": "consumer_electronics", "type": "in_scenario", "weight": 0.95, "importance": "core", "direction": "forward"}, {"source": "imac", "target": "personal_computing", "type": "in_scenario", "weight": 0.85, "importance": "important", "direction": "forward"}, {"source": "itunes", "target": "digital_media", "type": "in_scenario", "weight": 0.8, "importance": "important", "direction": "forward"}, {"source": "apple_store", "target": "retail_experience", "type": "in_scenario", "weight": 0.95, "importance": "core", "direction": "forward"}]
+        };
+        
+        // 颜色映射
+        const colorMap = {
+            'Person': '#ff6b6b',
+            'Concept': '#4a9eff',
+            'Method': '#51cf66',
+            'Product': '#ffd43b',
+            'Organization': '#ff922b',
+            'Event': '#da77f2',
+            'Scenario': '#74c0fc'
+        };
+        
+        // 计算节点度数
+        const nodeDegree = {};
+        graphData.nodes.forEach(node => {
+            nodeDegree[node.id] = 0;
+        });
+        graphData.edges.forEach(edge => {
+            nodeDegree[edge.source]++;
+            nodeDegree[edge.target]++;
+        });
+        
+        // 初始化SVG
+        const width = document.getElementById('canvas').offsetWidth;
+        const height = window.innerHeight;
+        
+        const svg = d3.select('#graph-svg')
+            .attr('width', width)
+            .attr('height', height);
+        
+        // 创建g元素用于缩放
+        const g = svg.append('g');
+        
+        // 创建力导向图
+        const simulation = d3.forceSimulation(graphData.nodes)
+            .force('link', d3.forceLink(graphData.edges)
+                .id(d => d.id)
+                .distance(d => 120 / (d.weight || 0.5)))
+            .force('charge', d3.forceManyBody().strength(-400))
+            .force('center', d3.forceCenter(width / 2, height / 2))
+            .force('collision', d3.forceCollide().radius(35));
+        
+        // 添加缩放行为
+        const zoom = d3.zoom()
+            .on('zoom', (e) => {
+                g.attr('transform', e.transform);
+            });
+        
+        svg.call(zoom);
+        
+        // 绘制箭头定义
+        svg.append('defs').selectAll('marker')
+            .data(['arrow-core', 'arrow-important', 'arrow-reference'])
+            .enter()
+            .append('marker')
+            .attr('id', d => d)
+            .attr('markerWidth', 10)
+            .attr('markerHeight', 10)
+            .attr('refX', 12)
+            .attr('refY', 3)
+            .attr('orient', 'auto')
+            .append('polygon')
+            .attr('points', '0 0, 10 3, 0 6')
+            .attr('fill', d => {
+                if (d === 'arrow-core') return '#00d4ff';
+                if (d === 'arrow-important') return '#888';
+                return '#444';
+            });
+        
+        // 绘制链接
+        const links = g.append('g')
+            .selectAll('line')
+            .data(graphData.edges)
+            .enter()
+            .append('line')
+            .attr('stroke', d => {
+                if (d.importance === 'core') return '#00d4ff';
+                if (d.importance === 'important') return '#888';
+                return '#444';
+            })
+            .attr('stroke-width', d => Math.sqrt(d.weight) * 2.5)
+            .attr('marker-end', d => `url(#arrow-${d.importance})`)
+            .attr('opacity', d => d.importance === 'reference' ? 0.3 : 0.6);
+        
+        // 绘制节点
+        const nodes = g.append('g')
+            .selectAll('circle')
+            .data(graphData.nodes)
+            .enter()
+            .append('circle')
+            .attr('r', d => {
+                const base = d.importance === 'core' ? 14 : d.importance === 'important' ? 11 : 8;
+                return base;
+            })
+            .attr('fill', d => colorMap[d.type] || '#a0aec0')
+            .attr('opacity', d => d.importance === 'reference' ? 0.6 : 1)
+            .attr('stroke', '#fff')
+            .attr('stroke-width', 2)
+            .call(d3.drag()
+                .on('start', dragstarted)
+                .on('drag', dragged)
+                .on('end', dragended))
+            .on('click', (e, d) => {
+                e.stopPropagation();
+                showNodeInfo(d);
+                highlightNode(d.id);
+            })
+            .on('mouseover', (e, d) => showTooltip(e, d))
+            .on('mouseout', hideTooltip);
+        
+        // 绘制标签
+        const labels = g.append('g')
+            .selectAll('text')
+            .data(graphData.nodes)
+            .enter()
+            .append('text')
+            .attr('font-size', d => d.importance === 'core' ? 12 : 11)
+            .attr('fill', '#fff')
+            .attr('text-anchor', 'middle')
+            .attr('dy', '0.3em')
+            .attr('pointer-events', 'none')
+            .text(d => d.name)
+            .attr('opacity', d => d.importance === 'reference' ? 0.5 : 1);
+        
+        // 更新位置
+        simulation.on('tick', () => {
+            links
+                .attr('x1', d => d.source.x)
+                .attr('y1', d => d.source.y)
+                .attr('x2', d => d.target.x)
+                .attr('y2', d => d.target.y);
+            
+            nodes
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y);
+            
+            labels
+                .attr('x', d => d.x)
+                .attr('y', d => d.y);
+        });
+        
+        // 拖拽函数
+        function dragstarted(e, d) {
+            if (!e.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+        
+        function dragged(e, d) {
+            d.fx = e.x;
+            d.fy = e.y;
+        }
+        
+        function dragended(e, d) {
+            if (!e.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+        
+        // 显示节点信息
+        function showNodeInfo(node) {
+            document.getElementById('node-info').classList.add('active');
+            document.getElementById('node-name').textContent = node.name;
+            document.getElementById('node-type').textContent = node.type;
+            document.getElementById('node-importance').textContent = node.importance;
+            document.getElementById('node-description').textContent = node.description || '-';
+            
+            if (node.period) {
+                document.getElementById('node-period').style.display = 'block';
+                document.getElementById('node-period-value').textContent = node.period;
+            } else {
+                document.getElementById('node-period').style.display = 'none';
+            }
+            
+            document.getElementById('node-degree').style.display = 'block';
+            document.getElementById('node-degree-value').textContent = nodeDegree[node.id];
+        }
+        
+        // 高亮节点
+        function highlightNode(nodeId) {
+            nodes.attr('opacity', d => {
+                if (d.id === nodeId) return 1;
+                const isConnected = graphData.edges.some(e => 
+                    (e.source.id === nodeId && e.target.id === d.id) ||
+                    (e.target.id === nodeId && e.source.id === d.id)
+                );
+                return isConnected ? 0.8 : 0.3;
+            });
+            
+            links.attr('opacity', d => {
+                if (d.source.id === nodeId || d.target.id === nodeId) {
+                    return d.importance === 'reference' ? 0.5 : 0.8;
+                }
+                return 0.1;
+            });
+            
+            labels.attr('opacity', d => {
+                if (d.id === nodeId) return 1;
+                const isConnected = graphData.edges.some(e => 
+                    (e.source.id === nodeId && e.target.id === d.id) ||
+                    (e.target.id === nodeId && e.source.id === d.id)
+                );
+                return isConnected ? 0.8 : 0.2;
+            });
+        }
+        
+        // 重置高亮
+        svg.on('click', () => {
+            nodes.attr('opacity', d => d.importance === 'reference' ? 0.6 : 1);
+            links.attr('opacity', d => d.importance === 'reference' ? 0.3 : 0.6);
+            labels.attr('opacity', d => d.importance === 'reference' ? 0.5 : 1);
+        });
+        
+        // 显示提示
+        function showTooltip(e, d) {
+            const tooltip = document.getElementById('tooltip');
+            tooltip.textContent = `${d.name} (${d.type})`;
+            tooltip.style.display = 'block';
+            tooltip.style.left = (e.pageX + 10) + 'px';
+            tooltip.style.top = (e.pageY + 10) + 'px';
+        }
+        
+        function hideTooltip() {
+            document.getElementById('tooltip').style.display = 'none';
+        }
+        
+        // 搜索功能
+        document.getElementById('search-box').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            nodes.attr('opacity', d => {
+                if (!query) return d.importance === 'reference' ? 0.6 : 1;
+                return d.name.toLowerCase().includes(query) ? 1 : 0.2;
+            });
+            labels.attr('opacity', d => {
+                if (!query) return d.importance === 'reference' ? 0.5 : 1;
+                return d.name.toLowerCase().includes(query) ? 1 : 0.2;
+            });
+        });
+        
+        // 控制显示/隐藏
+        document.getElementById('show-labels').addEventListener('change', (e) => {
+            labels.style('opacity', e.target.checked ? null : 0);
+        });
+        
+        document.getElementById('show-arrows').addEventListener('change', (e) => {
+            links.style('marker-end', e.target.checked ? d => `url(#arrow-${d.importance})` : 'none');
+        });
+        
+        document.getElementById('show-reference').addEventListener('change', (e) => {
+            links.style('opacity', d => {
+                if (e.target.checked) return d.importance === 'reference' ? 0.3 : 0.6;
+                return d.importance === 'reference' ? 0 : 0.6;
+            });
+            nodes.style('opacity', d => {
+                if (e.target.checked) return d.importance === 'reference' ? 0.6 : 1;
+                return d.importance === 'reference' ? 0 : 1;
+            });
+            labels.style('opacity', d => {
+                if (e.target.checked) return d.importance === 'reference' ? 0.5 : 1;
+                return d.importance === 'reference' ? 0 : 1;
+            });
+        });
+        
+        // 节点大小控制
+        document.getElementById('node-size').addEventListener('input', (e) => {
+            const scale = parseFloat(e.target.value);
+            document.getElementById('node-size-value').textContent = scale.toFixed(1) + 'x';
+            nodes.attr('r', d => {
+                const base = d.importance === 'core' ? 14 : d.importance === 'important' ? 11 : 8;
+                return base * scale;
+            });
+        });
+        
+        // 链接强度控制
+        document.getElementById('link-strength').addEventListener('input', (e) => {
+            const strength = parseFloat(e.target.value);
+            document.getElementById('link-strength-value').textContent = strength.toFixed(1) + 'x';
+            simulation.force('link').distance(d => (120 / (d.weight || 0.5)) / strength);
+            simulation.alpha(0.3).restart();
+        });
+        
+        // 缩放控制
+        document.getElementById('zoom-in').addEventListener('click', () => {
+            svg.transition().duration(300).call(zoom.scaleBy, 1.3);
+        });
+        
+        document.getElementById('zoom-out').addEventListener('click', () => {
+            svg.transition().duration(300).call(zoom.scaleBy, 0.7);
+        });
+        
+        document.getElementById('reset-view').addEventListener('click', () => {
+            svg.transition().duration(300).call(zoom.transform, d3.zoomIdentity.translate(0, 0));
+            simulation.alpha(0.3).restart();
+        });
+    </script>
+</body>
+</html>
